@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,19 +25,28 @@ import com.zirakusa.contactos.ui.ContactosState
 import com.zirakusa.contactos.ui.Page
 import com.zirakusa.contactos.ui.theme.ContactosColors
 
-/** «Contactos repetidos»: people saved twice (same number or same name). Tap one to edit or delete it. */
+/** «Contactos repetidos»: people saved twice (same number or same name). «Combinar» joins a group (nothing is deleted); tap one to open it. */
 @Composable fun DuplicatesScreen(state: ContactosState) = Column(Modifier.fillMaxSize().background(ContactosColors.Background).systemBarsPadding()
     .verticalScroll(rememberScrollState()).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-    PageTop(stringResource(R.string.duplicates)) { state.page = Page.SETTINGS }
+    PageTop(stringResource(R.string.duplicates)) { state.page = state.dupesBack }
     val groups = state.duplicates
     if (groups.isEmpty()) Text(stringResource(R.string.no_duplicates), Modifier.padding(16.dp), color = ContactosColors.Muted)
+    else Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(stringResource(R.string.merge_hint), Modifier.weight(1f).padding(start = 8.dp), color = ContactosColors.Muted, fontSize = 14.sp)
+        if (groups.size > 1) TextButton({ groups.forEach(state::merge) }) { Text(stringResource(R.string.merge_all), color = ContactosColors.AccentText) }
+    }
     groups.forEach { g ->
-        Group { g.forEachIndexed { i, c ->
+        Group {
+            Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(g.first().shownName, Modifier.weight(1f), color = ContactosColors.Muted, fontSize = 14.sp)
+                TextButton({ state.merge(g) }) { Text(stringResource(R.string.merge), color = ContactosColors.AccentText) }
+            }
+            g.forEachIndexed { i, c ->
             if (i > 0) Divider()
             Row(Modifier.fillMaxWidth().clickable { state.open(c) }.padding(horizontal = 16.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                 Avatar(c)
                 Column(Modifier.padding(start = 14.dp)) {
-                    Text(c.shownName, fontSize = 17.sp)
+                    Text(state.name(c), fontSize = 17.sp)
                     Text(c.phones.joinToString(" · ") { Phones.pretty(it.number) }, color = ContactosColors.Muted, fontSize = 13.sp)
                 }
             }

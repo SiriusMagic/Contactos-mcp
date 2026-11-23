@@ -11,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Call
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Share
@@ -30,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zirakusa.contactos.R
@@ -42,21 +42,25 @@ import com.zirakusa.contactos.ui.Page
 import com.zirakusa.contactos.ui.theme.ContactosColors
 import java.time.format.DateTimeFormatter
 
-/** One contact: picture and name, Llamar · Mensaje · Correo · Compartir, then each number, email, birthday, address and note. */
+/**
+ * One contact: picture and name, Llamar · Mensaje · Correo · Compartir, then each number, email, birthday, address, note
+ * and where it is saved. ⋮ has Favoritos, Compartir, Tono de llamada, Bloquear, Desvincular and Eliminar (the user only).
+ */
 @Composable fun DetailScreen(state: ContactosState, c: Contact, actions: AppActions) {
     var deleting by remember { mutableStateOf(false) }
-    Sheet(c.shownName, onBack = { state.page = Page.LIST }) {
+    val me = state.isProfile(c)
+    Sheet(state.name(c), onBack = { state.page = Page.LIST }, menu = { DetailMenu(state, c, actions, me) { deleting = true } }) {
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(14.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Avatar(c, 96.dp)
-            Text(c.shownName, fontSize = 26.sp)
+            Text(state.name(c), fontSize = 26.sp, textAlign = TextAlign.Center)
             if (c.org.isNotBlank()) Text(c.org, color = ContactosColors.Muted)
             val phone = c.phones.firstOrNull()?.number; val mail = c.emails.firstOrNull()?.address
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 Action(Icons.Outlined.Call, R.string.call, phone != null) { phone?.let(actions.call) }
                 Action(Icons.Outlined.Sms, R.string.message, phone != null) { phone?.let(actions.sms) }
                 Action(Icons.Outlined.Email, R.string.email, mail != null) { mail?.let(actions.email) }
-                Action(Icons.Outlined.Share, R.string.share, true) { actions.share(c) }
+                Action(Icons.Outlined.Share, R.string.share, true) { state.card(c) }
             }
             if (c.phones.isNotEmpty()) Group { c.phones.forEachIndexed { i, p -> if (i > 0) Divider(); Line(Phones.pretty(p.number), stringResource(labelName(p.label)), { actions.call(p.number) }) { actions.copy(p.number) } } }
             if (c.emails.isNotEmpty()) Group { c.emails.forEachIndexed { i, e -> if (i > 0) Divider(); Line(e.address, stringResource(labelName(e.label)), { actions.email(e.address) }) { actions.copy(e.address) } } }
@@ -67,10 +71,11 @@ import java.time.format.DateTimeFormatter
             }
             if (c.address.isNotBlank()) Group { Line(c.address, stringResource(R.string.address), { actions.map(c.address) }) { actions.copy(c.address) } }
             if (c.note.isNotBlank()) Group { Line(c.note, stringResource(R.string.note), null) { actions.copy(c.note) } }
+            val where = c.raws.map { it.account }.distinct()
+            if (where.isNotEmpty()) Group { Line(where.map { accountName(it) }.distinct().joinToString(" · "), stringResource(R.string.saved_in), null, null) }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                Action(if (c.starred) Icons.Filled.Star else Icons.Outlined.StarBorder, R.string.favorite, true, c.starred) { state.star(c) }
-                Action(Icons.Outlined.Edit, R.string.edit, true) { state.edit(c) }
-                Action(Icons.Outlined.Delete, R.string.delete, true) { deleting = true }
+                if (!me) Action(if (c.starred) Icons.Filled.Star else Icons.Outlined.StarBorder, R.string.favorite, true, c.starred) { state.star(c) }
+                Action(Icons.Outlined.Edit, R.string.edit, true) { if (me) actions.editProfile(c) else state.edit(c) }
             }
         }
     }

@@ -90,6 +90,8 @@ object McpMode {
 /** The real contacts for the tools: Android's own, the same the screens show; every change is shown. */
 class LiveData(context: Context) : ContactData {
     override val store = com.zirakusa.contactos.AndroidStore(context)
+    private val settings = Settings(com.zirakusa.contactos.data.SharedValues(context))
+    override fun account() = settings.storage
     private val main = Handler(Looper.getMainLooper())
     override fun changed() { main.post { McpMode.onChanged() } }
 }

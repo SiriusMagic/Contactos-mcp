@@ -1,9 +1,8 @@
 # Hoja de ruta
 
-## 0.2.0
-- Unir contactos repetidos en uno.
+## 0.3.0
 - Fotos de contacto (elegir de Luma).
-- Importar y exportar todos los contactos (.vcf) con Filem.
+- Editar «Mi perfil» dentro de Contactos.
 
 ## Después
 - Grupos y etiquetas.

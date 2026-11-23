@@ -40,7 +40,7 @@ data class Birthday(val month: Int, val day: Int, val year: Int? = null) {
 /** One contact as the app shows it (Android may keep it in several accounts; [id] is its contact id). */
 data class Contact(val id: Long = 0, val name: String = "", val phones: List<Phone> = emptyList(), val emails: List<Email> = emptyList(),
     val org: String = "", val note: String = "", val birthday: Birthday? = null, val address: String = "", val starred: Boolean = false,
-    val photo: String? = null) {
+    val photo: String? = null, val raws: List<Raw> = emptyList(), val altName: String = "", val ringtone: String? = null) {
     val shownName get() = name.ifBlank { phones.firstOrNull()?.number ?: emails.firstOrNull()?.address ?: "" }
     /** Up to two letters for the round picture («AP» for Ana Pérez). */
     val initials get() = shownName.split(' ', '-').filter { it.isNotBlank() && it[0].isLetterOrDigit() }.take(2).joinToString("") { it.take(1).uppercase() }
@@ -54,9 +54,60 @@ object Contacts {
     private val collator = Collator.getInstance(Locale.forLanguageTag("es")).apply { strength = Collator.PRIMARY }
 
     /** What a contact is sorted by: the name, or «Pérez Ana» when sorting by last name. */
-    fun key(c: Contact, order: Order = Order.FIRST): String {
+    fun key(c: Contact, order: Order = Order.FIRST): String = if (order == Order.LAST) lastFirst(c).replace(",", "") else c.shownName
+
+    /** «Pérez, Ana»: Android's own alternative name when it has one, else the last word first. */
+    private fun lastFirst(c: Contact): String {
+        if (c.altName.isNotBlank()) return c.altName.trim()
         val words = c.name.trim().split(Regex("\\s+"))
-        return if (order == Order.LAST && words.size > 1) (words.drop(1) + words.first()).joinToString(" ") else c.shownName
+        return if (words.size > 1) words.drop(1).joinToString(" ") + ", " + words.first() else c.shownName
+    }
+
+    /** The name as «Formato del nombre» asks: «Ana Pérez» or «Pérez, Ana». */
+    fun display(c: Contact, format: NameFormat) = if (format == NameFormat.LAST && c.name.isNotBlank()) lastFirst(c) else c.shownName
+
+    /** The letters of the bar on the right: always the whole alphabet, Ñ after N, and #. */
+    val INDEX: List<Char> = ('A'..'N') + 'Ñ' + ('O'..'Z') + '#'
+
+    /** Tapping a letter with nobody under it goes to the next one that has someone (or the last). */
+    fun jump(present: List<Char>, tapped: Char): Char? {
+        if (present.isEmpty()) return null
+        val at = INDEX.indexOf(tapped)
+        return present.filter { INDEX.indexOf(it) >= at }.minByOrNull { INDEX.indexOf(it) } ?: present.maxBy { INDEX.indexOf(it) }
+    }
+
+    /** Several parts of one person (one per account) shown as one: numbers and emails once each. */
+    fun merge(parts: List<Contact>): Contact {
+        val first = parts.first()
+        if (parts.size == 1) return first
+        fun text(f: (Contact) -> String) = parts.map(f).firstOrNull { it.isNotBlank() }.orEmpty()
+        return Contact(first.id, text { it.name },
+            parts.flatMap { it.phones }.distinctBy { Phones.key(it.number).ifEmpty { it.number } },
+            parts.flatMap { it.emails }.distinctBy { it.address.lowercase() },
+            text { it.org }, text { it.note }, parts.firstNotNullOfOrNull { it.birthday }, text { it.address }, parts.any { it.starred },
+            parts.firstNotNullOfOrNull { it.photo }, parts.flatMap { it.raws }, text { it.altName }, parts.firstNotNullOfOrNull { it.ringtone })
+    }
+
+    /**
+     * «Ocultar los contactos repetidos»: the same name with the same numbers (usually one copy per account) is shown once,
+     * the one with the most to show. People who only share a name or a number stay.
+     */
+    fun hideDuplicates(items: List<Contact>): List<Contact> {
+        val seen = HashSet<String>()
+        val kept = items.sortedByDescending { it.phones.size + it.emails.size + (if (it.starred) 10 else 0) + (if (it.birthday != null) 1 else 0) }
+            .filter { c -> seen.add(plain(c.shownName).trim() + "|" + c.phones.map { Phones.key(it.number) }.toSortedSet().joinToString(",")) }
+            .map { it.id }.toHashSet()
+        return items.filter { it.id in kept }
+    }
+
+    /** What the duplicates banner remembers when closed: it comes back only when there are new duplicates. */
+    fun signature(groups: List<List<Contact>>) = groups.flatten().map { it.id }.sorted().joinToString(",")
+
+    /** Already in the phone: the same name and a number in common (or neither has a number). For «Importar». */
+    fun known(items: List<Contact>, c: Contact): Boolean {
+        val keys = c.phones.map { Phones.key(it.number) }.toSet()
+        return items.any { o -> plain(o.shownName).trim() == plain(c.shownName).trim() &&
+            (keys.isEmpty() && o.phones.isEmpty() || o.phones.any { Phones.key(it.number) in keys }) }
     }
 
     /** Letters then «#» for names that start with something else. */

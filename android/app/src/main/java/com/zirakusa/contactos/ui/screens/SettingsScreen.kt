@@ -20,32 +20,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zirakusa.contactos.BuildConfig
-import com.zirakusa.contactos.data.Order
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.ui.unit.sp
 import com.zirakusa.contactos.R
 import com.zirakusa.contactos.mcp.McpMode
 import com.zirakusa.contactos.mcp.RelayLink
+import com.zirakusa.contactos.ui.AppActions
 import com.zirakusa.contactos.ui.Page
 import com.zirakusa.contactos.ui.ContactosState
 import com.zirakusa.contactos.ui.theme.ContactosColors
 
-/** «Ajustes»: order, duplicates, Modo MCP, Temas, privacy and version. */
-@Composable fun SettingsScreen(state: ContactosState) {
+/** «Ajustes»: contacts (show, storage, duplicates, order, name, .vcf), Modo MCP, Temas, privacy and version. */
+@Composable fun SettingsScreen(state: ContactosState, actions: AppActions) {
     var privacy by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().background(ContactosColors.Background).systemBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)) {
         PageTop(stringResource(R.string.settings)) { state.page = Page.LIST }
-        Group {
-            Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text(stringResource(R.string.sort_by), fontSize = 18.sp)
-                Segmented(listOf(stringResource(R.string.first_name), stringResource(R.string.last_name)), state.order.ordinal, Modifier.fillMaxWidth()) {
-                    state.changeOrder(Order.entries[it])
-                }
-            }
-            Divider()
-            Item(stringResource(R.string.duplicates), state.duplicates.size.toString(), onClick = { state.page = Page.DUPLICATES })
-        }
+        ContactsSettings(state, actions)
         Group {
             val status = when {
                 !McpMode.active -> stringResource(R.string.mcp_status_off)

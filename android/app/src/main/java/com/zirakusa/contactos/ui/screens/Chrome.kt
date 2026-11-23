@@ -54,13 +54,15 @@ import com.zirakusa.contactos.ui.theme.ContactosColors
     }
 
 /** A page that slides over the tabs, like a sheet: title in the middle, close (X) on the right or back (←) on the left. */
-@Composable fun Sheet(title: String, onClose: (() -> Unit)? = null, onBack: (() -> Unit)? = null, content: @Composable ColumnScope.() -> Unit) =
+@Composable fun Sheet(title: String, onClose: (() -> Unit)? = null, onBack: (() -> Unit)? = null, menu: (@Composable () -> Unit)? = null,
+    content: @Composable ColumnScope.() -> Unit) =
     Box(Modifier.fillMaxSize().background(ContactosColors.Background).statusBarsPadding().padding(top = 16.dp)) {
         Column(Modifier.fillMaxSize().clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)).background(ContactosColors.Sheet)) {
             Box(Modifier.fillMaxWidth().padding(16.dp).height(52.dp)) {
                 if (onBack != null) RoundButton(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.back), Modifier.align(Alignment.CenterStart), 52.dp, onClick = onBack)
                 Text(title, Modifier.align(Alignment.Center).padding(horizontal = 60.dp), fontSize = 20.sp, textAlign = TextAlign.Center, maxLines = 1)
                 if (onClose != null) RoundButton(Icons.Outlined.Close, stringResource(R.string.close), Modifier.align(Alignment.CenterEnd), 52.dp, onClick = onClose)
+                else if (menu != null) Box(Modifier.align(Alignment.CenterEnd)) { menu() }
             }
             content()
         }
@@ -82,6 +84,6 @@ import com.zirakusa.contactos.ui.theme.ContactosColors
     }
 
 /** The wide accent button at the bottom («Guardar»). */
-@Composable fun MainButton(text: String, modifier: Modifier = Modifier, onClick: () -> Unit) =
-    Text(text, modifier.fillMaxWidth(0.62f).clip(CircleShape).background(ContactosColors.Accent).clickable(onClick = onClick).padding(vertical = 16.dp),
+@Composable fun MainButton(text: String, modifier: Modifier = Modifier, fraction: Float = 0.62f, onClick: () -> Unit) =
+    Text(text, modifier.fillMaxWidth(fraction).clip(CircleShape).background(ContactosColors.Accent).clickable(onClick = onClick).padding(vertical = 16.dp),
         color = ContactosColors.OnAccent, fontSize = 18.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Medium)

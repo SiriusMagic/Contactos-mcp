@@ -1,5 +1,6 @@
 package com.zirakusa.contactos
 
+import com.zirakusa.contactos.data.Account
 import com.zirakusa.contactos.data.MemoryStore
 import com.zirakusa.contactos.mcp.Access
 import com.zirakusa.contactos.mcp.ContactData
@@ -22,12 +23,14 @@ import java.time.LocalDate
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [34])
 class McpTest {
+    private val google = Account("com.google", "ana@gmail.com")
     private val memory = MemoryStore(People.all)
     private val data = object : ContactData {
         override val store = memory
         var changes = 0
         override fun today(): LocalDate = LocalDate.of(2026, 11, 21)
         override fun changed() { changes++ }
+        override fun account() = google
     }
     private val writer = Token("w", "Claude", "con_" + "w".repeat(40), Access.WRITE, Kind.HUB, "Contactos")
     private val reader = Token("r", "Lector", "con_" + "r".repeat(40), Access.READ)
@@ -56,6 +59,7 @@ class McpTest {
         assertEquals(2, found.getInt("total")); assertEquals("Ana Pérez", found.getJSONArray("contacts").getJSONObject(0).getString("name"))
         val ana = ok("contacts_get", JSONObject().put("id", 1)).getJSONObject("contact")
         assertEquals("ana@correo.ec", ana.getJSONArray("emails").getJSONObject(0).getString("address")); assertEquals("1991-11-23", ana.getString("birthday"))
+        assertEquals("phone", ana.getJSONArray("accounts").getString(0))                     // kinds only, never account names
         assertEquals(1, ok("contacts_favorites").getJSONArray("contacts").length())
         val b = ok("contacts_birthdays", JSONObject().put("days", 7)).getJSONArray("birthdays")
         assertEquals(2, b.length()); assertEquals(0, b.getJSONObject(0).getInt("days")); assertEquals(35, b.getJSONObject(1).getInt("turns"))
@@ -63,6 +67,8 @@ class McpTest {
         assertEquals("0991112222", made.getString("phone")); assertEquals("--05-14", made.getString("birthday"))
         assertTrue(ok("contacts_favorite", JSONObject().put("id", made.getLong("id")).put("favorite", true)).getBoolean("favorite"))
         assertEquals(2, data.changes); assertEquals(7, memory.list().size)
+        assertEquals(google, memory.list().first { it.id == made.getLong("id") }.raws.single().account)   // «Almacenamiento predeterminado»
+        assertEquals("google", ok("contacts_get", JSONObject().put("id", made.getLong("id"))).getJSONObject("contact").getJSONArray("accounts").getString(0))
     }
 
     @Test fun badArgumentsAreRefused() {

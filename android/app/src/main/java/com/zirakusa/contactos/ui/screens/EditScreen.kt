@@ -12,6 +12,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,7 +30,13 @@ import com.zirakusa.contactos.ui.theme.ContactosColors
 @Composable fun EditScreen(state: ContactosState) = Sheet(stringResource(if (state.draft.id == 0L) R.string.new_contact else R.string.edit), onClose = state::cancelEdit) {
     val d = state.draft
     fun set(next: Draft) { state.draft = next }
+    var picking by remember { mutableStateOf(false) }
     Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        // «Guardar en»: a new contact picks its account; an edit changes only the part it opened.
+        if (d.id == 0L || state.shown?.raws.orEmpty().size > 1) Group {
+            Item(stringResource(R.string.save_in), listOfNotNull(accountName(d.account), accountDetail(d.account)).joinToString(" · "),
+                onClick = if (d.id == 0L && state.accounts.size > 1) ({ picking = true }) else null)
+        }
         Field(R.string.name, d.name) { set(d.copy(name = it.take(100))) }
         d.phones.forEachIndexed { i, p -> Field(R.string.phone, p, KeyboardType.Phone) { v -> set(d.copy(phones = grow(d.phones, i, v.take(40)))) } }
         d.emails.forEachIndexed { i, e -> Field(R.string.email, e, KeyboardType.Email) { v -> set(d.copy(emails = grow(d.emails, i, v.take(100)))) } }
@@ -40,6 +50,9 @@ import com.zirakusa.contactos.ui.theme.ContactosColors
             null -> Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { MainButton(stringResource(R.string.save)) { state.save() } }
         }
         TextButton(state::cancelEdit, Modifier.align(Alignment.CenterHorizontally)) { Text(stringResource(R.string.cancel), color = ContactosColors.Text) }
+    }
+    if (picking) AccountDialog(stringResource(R.string.save_in), state.accounts, d.account, onCancel = { picking = false }) { a ->
+        picking = false; if (a != null) set(d.copy(account = a))
     }
 }
 

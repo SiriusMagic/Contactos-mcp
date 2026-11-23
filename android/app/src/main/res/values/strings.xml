@@ -103,4 +103,50 @@
     <string name="privacy_text">Contactos no tiene anuncios ni estadísticas. Muestra y edita los contactos que ya tiene tu teléfono, en la cuenta donde estén (Google, SIM o teléfono); la app no guarda copias propias. Inicio solo ve nombres y días de cumpleaños, nunca números. Solo si activas el Modo MCP, la IA que conectes con un token puede buscar y leer tus contactos y, si el token es de lectura y escritura, crear contactos y marcar favoritos, a través del relay. La IA nunca elimina contactos ni llama o escribe.</string>
     <plurals name="search_n"><item quantity="one">Buscar en %1$d contacto</item><item quantity="many">Buscar en %1$d contactos</item><item quantity="other">Buscar en %1$d contactos</item></plurals>
     <plurals name="in_days"><item quantity="one">En %1$d día</item><item quantity="many">En %1$d días</item><item quantity="other">En %1$d días</item></plurals>
+    <string name="contacts_title">Contactos</string>
+    <string name="dupes_banner">Se encontraron contactos repetidos. Se recomienda combinarlos.</string>
+    <string name="merge">Combinar</string>
+    <string name="merge_all">Combinar todos</string>
+    <string name="merge_hint">Combinar une los contactos en uno: no se borra nada y puedes desvincularlos después.</string>
+    <string name="my_profile">Mi perfil</string>
+    <string name="acc_phone">Teléfono</string>
+    <string name="acc_sim">SIM</string>
+    <string name="acc_sim_n">SIM %1$d</string>
+    <string name="acc_google">Google</string>
+    <string name="saved_in">Guardado en</string>
+    <string name="save_in">Guardar en</string>
+    <string name="pick_title">Elige qué editar</string>
+    <string name="pick_text">Selecciona un contacto para editar. Esta persona está guardada en varias cuentas; las demás no cambian.</string>
+    <string name="card_title">Compartir contacto</string>
+    <string name="card_scan">Escanea el código QR para añadir el contacto</string>
+    <string name="card_too_long">El contacto es demasiado largo para un código QR.</string>
+    <string name="share_vcf">Tarjeta (.vcf)</string>
+    <string name="share_image">Imagen</string>
+    <string name="share_text">Texto</string>
+    <string name="image_saved">Imagen guardada en Imágenes › Contactos</string>
+    <string name="image_failed">No se pudo guardar la imagen</string>
+    <string name="more">Más opciones</string>
+    <string name="ringtone">Tono de llamada</string>
+    <string name="block">Bloquear contacto</string>
+    <string name="blocked_done">Número bloqueado</string>
+    <string name="blocked_system">Se abre la lista de bloqueados del teléfono; el número está copiado para pegarlo.</string>
+    <string name="unlink">Desvincular</string>
+    <string name="unlinked">Contactos separados</string>
+    <string name="delete_contact">Eliminar contacto</string>
+    <string name="show_contacts">Contactos para mostrar</string>
+    <string name="show_all">Todos los contactos</string>
+    <string name="default_storage">Almacenamiento predeterminado</string>
+    <string name="hide_dups">Ocultar los contactos repetidos</string>
+    <string name="hide_dups_hint">El mismo nombre con los mismos números (de cuentas distintas) se muestra una sola vez.</string>
+    <string name="name_format">Formato del nombre</string>
+    <string name="first_last">Nombre primero</string>
+    <string name="last_first">Apellido primero</string>
+    <string name="import_cards">Importar contactos (.vcf)</string>
+    <string name="export_cards">Exportar contactos (.vcf)</string>
+    <string name="imported">Importados: %1$d. Ya estaban: %2$d.</string>
+    <string name="exported">Contactos exportados</string>
+    <string name="transfer_failed">No se pudo leer o escribir el archivo</string>
+    <string name="blocked_numbers">Números bloqueados</string>
+    <string name="blocked_numbers_hint">La lista de bloqueados del teléfono</string>
+    <plurals name="contacts_n"><item quantity="one">%1$d contacto</item><item quantity="many">%1$d contactos</item><item quantity="other">%1$d contactos</item></plurals>
 </resources>

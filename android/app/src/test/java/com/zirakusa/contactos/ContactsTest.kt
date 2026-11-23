@@ -79,7 +79,7 @@ class ContactsTest {
         val store = MemoryStore(People.all)
         val state = ContactosState(MapValues(), store) { today }
         state.load()
-        assertEquals(listOf(People.ana), state.favorites); assertEquals(2, state.birthdays.size); assertEquals(1, state.duplicates.size)
+        assertEquals(listOf(People.ana.id), state.favorites.map { it.id }); assertEquals(2, state.birthdays.size); assertEquals(1, state.duplicates.size)
         state.query = "0995556666"; state.edit()
         assertEquals(listOf("0995556666"), state.draft.phones)
         state.draft = state.draft.copy(name = "Nuevo")

@@ -102,4 +102,50 @@
     <string name="privacy_text">Contactos has no ads or analytics. It shows and edits the contacts your phone already has, in the account where they are (Google, SIM or phone); the app keeps no copies of its own. Inicio only sees names and birthday days, never numbers. Only if you turn on MCP mode, the AI you connect with a token can search and read your contacts and, with a read-and-write token, create contacts and mark favourites, through the relay. The AI never deletes contacts nor calls or writes.</string>
     <plurals name="search_n"><item quantity="one">Search %1$d contact</item><item quantity="other">Search %1$d contacts</item></plurals>
     <plurals name="in_days"><item quantity="one">In %1$d day</item><item quantity="other">In %1$d days</item></plurals>
+    <string name="contacts_title">Contacts</string>
+    <string name="dupes_banner">Duplicate contacts found. Merging them is recommended.</string>
+    <string name="merge">Merge</string>
+    <string name="merge_all">Merge all</string>
+    <string name="merge_hint">Merging joins the contacts into one: nothing is deleted and you can unlink them later.</string>
+    <string name="my_profile">My profile</string>
+    <string name="acc_phone">Phone</string>
+    <string name="acc_sim">SIM</string>
+    <string name="acc_sim_n">SIM %1$d</string>
+    <string name="acc_google">Google</string>
+    <string name="saved_in">Saved in</string>
+    <string name="save_in">Save to</string>
+    <string name="pick_title">Choose what to edit</string>
+    <string name="pick_text">Select a contact to edit. This person is saved in several accounts; the others don\'t change.</string>
+    <string name="card_title">Share contact</string>
+    <string name="card_scan">Scan the QR code to add the contact</string>
+    <string name="card_too_long">The contact is too long for a QR code.</string>
+    <string name="share_vcf">Card (.vcf)</string>
+    <string name="share_image">Image</string>
+    <string name="share_text">Text</string>
+    <string name="image_saved">Image saved to Pictures › Contactos</string>
+    <string name="image_failed">The image couldn\'t be saved</string>
+    <string name="more">More options</string>
+    <string name="ringtone">Ringtone</string>
+    <string name="block">Block contact</string>
+    <string name="blocked_done">Number blocked</string>
+    <string name="blocked_system">The phone\'s blocked list opens; the number is copied so you can paste it.</string>
+    <string name="unlink">Unlink</string>
+    <string name="unlinked">Contacts separated</string>
+    <string name="delete_contact">Delete contact</string>
+    <string name="show_contacts">Contacts to display</string>
+    <string name="show_all">All contacts</string>
+    <string name="default_storage">Default storage</string>
+    <string name="hide_dups">Hide duplicate contacts</string>
+    <string name="hide_dups_hint">The same name with the same numbers (from different accounts) is shown once.</string>
+    <string name="name_format">Name format</string>
+    <string name="first_last">First name first</string>
+    <string name="last_first">Last name first</string>
+    <string name="import_cards">Import contacts (.vcf)</string>
+    <string name="export_cards">Export contacts (.vcf)</string>
+    <string name="imported">Imported: %1$d. Already there: %2$d.</string>
+    <string name="exported">Contacts exported</string>
+    <string name="transfer_failed">The file couldn\'t be read or written</string>
+    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="blocked_numbers_hint">The phone\'s blocked list</string>
+    <plurals name="contacts_n"><item quantity="one">%1$d contact</item><item quantity="other">%1$d contacts</item></plurals>
 </resources>

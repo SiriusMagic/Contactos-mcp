@@ -12,8 +12,8 @@ android {
         applicationId = "com.zirakusa.contactos"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
         // Modo MCP: the same public relay as the rest of the family (one device id per app). Empty = no MCP.
         val relayUrl = (project.findProperty("contactosRelayUrl") as String?).orEmpty().trimEnd('/')
         buildConfigField("String", "RELAY_URL", "\"$relayUrl\"")
@@ -50,6 +50,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
     // Modo MCP: WebSocket to the relay (same library and version as the rest of the family).
     implementation("com.squareup.okhttp3:okhttp:5.3.2")
+    // The QR code of «Compartir» (same library and version as the QR app; pure Java, on the phone).
+    implementation("com.google.zxing:core:3.5.4")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.18")
     testImplementation("androidx.compose.ui:ui-test-junit4")

@@ -1,5 +1,6 @@
 package com.zirakusa.contactos.mcp
 
+import com.zirakusa.contactos.data.Account
 import com.zirakusa.contactos.data.Birthday
 import com.zirakusa.contactos.data.Contact
 import com.zirakusa.contactos.data.ContactStore
@@ -9,6 +10,7 @@ import com.zirakusa.contactos.data.Label
 import com.zirakusa.contactos.data.NoAccess
 import com.zirakusa.contactos.data.Phone
 import com.zirakusa.contactos.data.Phones
+import com.zirakusa.contactos.data.Raw
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDate
@@ -17,6 +19,8 @@ import java.time.LocalDate
 interface ContactData {
     val store: ContactStore
     fun today(): LocalDate = LocalDate.now()
+    /** Where contacts_create saves: «Almacenamiento predeterminado» (the phone when null). */
+    fun account(): Account? = null
     /** Called after a tool changed something, so the screen reloads. */
     fun changed() {}
 }
@@ -39,7 +43,7 @@ object ContactTools {
     val tools = listOf(
         Tool("contacts_search", "Finds contacts by name (any word, accents ignored), number (Ecuador's 0… and +593… match) or email.", false,
             schema(listOf("query"), "query" to prop("string", "1–100 characters."), "limit" to prop("integer", "1–50, default 10."))),
-        Tool("contacts_get", "One contact: numbers, emails, company, birthday, address and note.", false,
+        Tool("contacts_get", "One contact: numbers, emails, company, birthday, address, note and the kinds of account it is saved in.", false,
             schema(listOf("id"), "id" to prop("integer", "From contacts_search."))),
         Tool("contacts_favorites", "The contacts marked as favourites.", false, schema(emptyList())),
         Tool("contacts_birthdays", "Birthdays coming up, soonest first, with the age they turn when the year is known.", false,
@@ -96,7 +100,8 @@ object ContactTools {
         if (email.isNotEmpty() && !email.matches(Regex("[^@\\s]+@[^@\\s]+\\.[^@\\s]+"))) throw ToolFailure("BAD_ARGUMENT", "«email» is not an address.")
         val birthday = if (args.has("birthday")) Birthday.parse(text(args, "birthday", 10)) ?: throw ToolFailure("BAD_ARGUMENT", "«birthday» is YYYY-MM-DD or MM-DD.") else null
         val c = data.store.save(Contact(0, name, listOfNotNull(phone.takeIf { it.isNotEmpty() }?.let { Phone(it, Label.MOBILE) }),
-            listOfNotNull(email.takeIf { it.isNotEmpty() }?.let { Email(it, Label.HOME) }), text(args, "company", 100), text(args, "note", 500), birthday))
+            listOfNotNull(email.takeIf { it.isNotEmpty() }?.let { Email(it, Label.HOME) }), text(args, "company", 100), text(args, "note", 500), birthday,
+            raws = listOf(Raw(0, data.account() ?: Account.PHONE))))
         data.changed()
         return JSONObject().put("contact", full(c))
     }
@@ -112,6 +117,8 @@ object ContactTools {
     private fun full(c: Contact) = brief(c).put("phones", JSONArray(c.phones.map { JSONObject().put("number", it.number).put("label", it.label.key) }))
         .put("emails", JSONArray(c.emails.map { JSONObject().put("address", it.address).put("label", it.label.key) }))
         .put("company", c.org).put("birthday", c.birthday?.iso() ?: JSONObject.NULL).put("address", c.address).put("note", c.note)
+        // Where it is saved, as kinds only («google», «sim», «phone»…): never account names or emails.
+        .put("accounts", JSONArray(c.raws.map { it.account.kind.name.lowercase() }.distinct()))
 
     private fun int(args: JSONObject, key: String, default: Int, range: IntRange): Int {
         if (!args.has(key)) return default
