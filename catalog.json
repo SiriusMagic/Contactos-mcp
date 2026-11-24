@@ -25,10 +25,10 @@
       "id": "gateway-hub",
       "name": "Gateway Hub",
       "package": "com.zirakusa.gatewayhub",
-      "versionCode": 31,
-      "versionName": "0.0.31",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.31.apk",
-      "notes": "Ajustes de Lucía → «Quién entiende lo que dices», «Pantalla apagada o bloqueada: solo asistente»",
+      "versionCode": 32,
+      "versionName": "0.0.32",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.32.apk",
+      "notes": "Ajustes de Lucía → «Intérprete del modelo»",
       "color": "#E8B931"
     },
     {
