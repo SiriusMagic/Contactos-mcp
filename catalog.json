@@ -5,10 +5,10 @@
       "id": "stone",
       "name": "Stone",
       "package": "com.zirakusa.stone.kotlin.preview",
-      "versionCode": 60,
-      "versionName": "1.7.26",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone/main/android-native/Stone-1.7.26-optimized.apk",
-      "notes": "Lucía (Gateway Hub) controla Stone sin internet",
+      "versionCode": 62,
+      "versionName": "1.7.28",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone/main/android-native/Stone-1.7.28-optimized.apk",
+      "notes": "«Permitir MCP local» en tu Stone de siempre",
       "color": "#8E7CF0"
     },
     {
@@ -28,7 +28,7 @@
       "versionCode": 32,
       "versionName": "0.0.32",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.32.apk",
-      "notes": "Ajustes de Lucía → «Intérprete del modelo»",
+      "notes": "Instala GatewayHub-0.0.32.apk, Ajustes de Lucía → «Intérprete del modelo»",
       "color": "#E8B931"
     },
     {
