@@ -1,2 +1,2 @@
-<!-- Android 10-11: nothing of Contactos (settings, tokens) goes to backups either. -->
+<!-- Android 10-11: nothing of Tienda (the last catalog, settings) goes to backups either. -->
 <full-backup-content><exclude domain="root" /><exclude domain="sharedpref" /><exclude domain="database" /><exclude domain="file" /></full-backup-content>

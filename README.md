@@ -1,32 +1,39 @@
-# Contactos (contactos MCP)
+# Tienda (la tienda de la familia)
 
-Contactos para Android en negro con acento rosa. Parte de la familia de Stone, Luma, Calculadora, Notas, Filem, Brújula,
-Nivel, Reloj, Calendario, Inicio, QR, Clima y Redes: tu IA (Claude, ChatGPT…) puede **buscar tus contactos y crear
-nuevos** por MCP.
+Instala y actualiza las apps de la familia (Stone, Stone Video, Gateway Hub, Teléfono, SMS, Reloj, Calendario, Notas,
+Clima, Cámara, QR, Redes, Brújula, Nivel, Calculadora, Filem, Luma, Inicio y la propia Tienda) desde sus repos de GitHub,
+sin copiar APK a mano.
 
-## Estado (0.2.0)
+## Estado (0.1.0)
 
-- Los **contactos del teléfono** (Google, SIM o teléfono), donde ya estén: Contactos no hace copias propias.
-- **Lista A–Z** con el número de contactos y el abecedario completo a la derecha para saltar (Ñ aparte, tildes
-  ignoradas), **Mi perfil**, **favoritos** y **cumpleaños próximos** (14 días, con la edad que cumplen). Marca de SIM o
-  Google en la foto. Aviso de **repetidos** con «Combinar» (unión de Android: nada se borra; «Desvincular» la deshace).
-- **Buscar** por nombre (cualquier palabra, sin tildes), número (099… y +593… son lo mismo) o correo.
-- **Ficha:** Llamar, Mensaje, Correo y Compartir; cada número (formato de Ecuador), correo, cumpleaños, dirección (abre
-  el mapa), nota y dónde está guardado; mantener pulsado copia. Menú ⋮: Favoritos, Compartir, Tono de llamada, Bloquear,
-  Desvincular y Eliminar (con confirmación).
-- **Compartir:** tarjeta con código QR (vCard); Guardar la imagen o compartir .vcf, imagen o texto.
-- **Nuevo / Editar:** «Guardar en» (teléfono, SIM o Google), nombre, varios números y correos, empresa, cumpleaños (año
-  opcional), dirección y nota. Si la persona está en varias cuentas, se elige cuál editar.
-- **Ajustes:** contactos para mostrar, almacenamiento predeterminado, **contactos repetidos** (combinar u ocultar),
-  ordenar y formato del nombre, importar/exportar .vcf, números bloqueados, **Modo MCP**, Temas, privacidad y versión.
-- **Modo MCP:** `contacts_search`, `contacts_get`, `contacts_favorites`, `contacts_birthdays` y, con token de lectura y
-  escritura, `contacts_create` y `contacts_favorite`. La IA **nunca elimina** contactos ni llama o escribe. Tokens
-  `con_…`; módulo `contacts_` para Gateway Hub.
-- **Resumen para Inicio:** «Cumpleaños» de la semana en la pantalla «Hoy» (solo nombres y días, nunca números).
-- Sin anuncios ni estadísticas; internet solo para el Modo MCP (apagado de fábrica).
+- **Apps:** una fila por app con su color, «Instalada 0.3.1 · Nueva 0.3.2» y el botón **Instalar**, **Actualizar** o
+  **Abrir**. Al tocar una fila, sus novedades.
+- **Actualizar todo:** una app tras otra (Tienda, la última). **Recargar** con el botón o deslizando hacia abajo.
+- **Seguro:** solo descarga de `raw.githubusercontent.com` por https. Antes de instalar comprueba que el APK es la app y
+  la versión del catálogo y que está **firmado igual que Tienda**; si no, no se instala y lo explica. El APK descargado
+  se borra siempre.
+- Sin anuncios ni estadísticas.
 
-APK: [`android/Contactos-0.2.0.apk`](android/Contactos-0.2.0.apk) (`com.zirakusa.contactos`, firmado como el resto de la
-familia y Gateway Hub).
+APK: [`android/Tienda-0.1.0.apk`](android/Tienda-0.1.0.apk) (`com.zirakusa.tienda`, firmado como el resto de la familia).
+
+## Primeros pasos
+
+1. **Renombra este repo en GitHub a `Tienda-mcp`** (Settings › Repository name). Hasta entonces la app usa el nombre
+   viejo, `Contactos-mcp`: prueba primero `Tienda-mcp` y después `Contactos-mcp`, así que funciona antes y después.
+2. **Instala Tienda a mano una vez**: descarga `android/Tienda-0.1.0.apk` en el teléfono y ábrelo.
+3. Al pulsar Instalar o Actualizar por primera vez, Tienda te lleva a Ajustes: **permite «Instalar apps desconocidas»**
+   para Tienda. Desde ahí, Tienda se actualiza sola (con un toque) como las demás.
+
+Las apps de la familia instaladas antes a mano se actualizan igual (misma firma); Android puede pedir confirmar cada una.
+
+## Catálogo
+
+`catalog.json` (en la raíz) dice qué versión hay de cada app. Tras publicar una versión de cualquier app:
+
+```bash
+python3 tools/update_catalog.py          # lee los APK y CHANGELOG de las carpetas locales
+python3 tools/update_catalog.py --check  # además comprueba que cada APK ya está en GitHub
+```
 
 ## Compilar y probar
 
@@ -35,6 +42,4 @@ cd android
 ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleRelease
 ```
 
-## Siguiente
-
-Ver [`ROADMAP.md`](ROADMAP.md).
+El código anterior de este repo (Contactos) vive ahora dentro de Teléfono; queda en el historial de git.

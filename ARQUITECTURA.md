@@ -1,15 +1,28 @@
-# Arquitectura de Contactos
+# Arquitectura de Tienda
 
-Carpeta = package (`android/app/src/main/java/com/zirakusa/contactos/`):
+Tienda descarga `catalog.json` (raíz de este repo) y, cuando el usuario lo pide, el APK de cada app de la familia; lo
+comprueba y lo instala con el instalador de Android.
+
+Carpeta = package (`android/app/src/main/java/com/zirakusa/tienda/`):
 
 | Carpeta | Qué hay |
 |---|---|
-| `data/` | Lógica pura, con pruebas. `Contact` (`Label`, `Phone`, `Email`, `Birthday` con 29 de febrero, `Contact` con iniciales; `Contacts`: orden por nombre o apellido, letras con Ñ, grupos, búsqueda, repetidos, cumpleaños próximos; `Phones`: clave para comparar 0…/+593…, formato de Ecuador, limpiar); `VCard` (crear, leer 2.1/3.0 con quoted-printable, varios en un .vcf, versión corta para QR, texto); `Account` (`Account`, `Raw` = una parte del contacto en una cuenta, `AccountKind`, `Badge`; `Accounts`: tipo de cuenta, marca SIM/Google, lista «Guardar en», filtro por cuenta; `Links`: pares para unir o separar); `Contacts` también une partes (`merge`), oculta repetidos, formato del nombre, abecedario (`INDEX`, `jump`) y `known`; `Transfer` (importar sin repetir y exportar .vcf); `Qr` (código QR con ZXing, copiado de la app QR); `Store` (`ContactStore`, `NoAccess`, `MemoryStore` por partes como Android, `Settings` con `Order`, `NameFormat`, ocultar repetidos, almacenamiento, cuenta a mostrar, `KeyValues`). |
-| `ui/` | `ContactosState` (único dueño del estado: contactos, búsqueda, el abierto, el `Draft` que se edita y ajustes) y `ContactosApp` (`AppActions`). |
-| `ui/screens/` | `ListScreen` (contador, búsqueda, A–Z, «+») y `ListParts` (aviso de repetidos, favoritos, cumpleaños, fila, abecedario); `DetailScreen` y `DetailMenu` (⋮); `PickScreen` («Selecciona un contacto para editar»); `CardScreen` (tarjeta con QR); `EditScreen` («Guardar en»); `DuplicatesScreen` («Combinar»); `SettingsScreen` y `ContactsSettings`; `AccountParts` (nombres de cuenta y diálogo); `Avatar` (con marca SIM/Google), `McpScreen`, `Parts`, `Chrome` y `SettingsParts`. |
-| `ui/theme/` | `Theme`: `ThemeMode` y `Accent` (rosa de fábrica). |
-| `mcp/` | Modo MCP, como las apps hermanas: `Tokens` (`con_…`), `ContactTools` (`contacts_search`, `contacts_get`, `contacts_favorites`, `contacts_birthdays`; con escritura `contacts_create`, `contacts_favorite`; a través de `ContactData`), `McpHandler`, `RelayLink`, `McpMode` (`LiveData`) y `HubLink` (módulo `contacts_`). |
-| `AndroidStore.kt` | Los contactos de Android (`ContactsContract`), siempre con `?`: leer todo de una vez (con sus partes y cuentas), una parte, «Mi perfil», cuentas (contactos, `Settings`, SIM, cuenta local), guardar en lote en una cuenta o parte, unir/separar (`AggregationExceptions`), tono, eliminar y favoritos. |
-| `CardImage.kt` | La tarjeta de «Compartir» como PNG (para «Imagen» y «Guardar»). |
-| `Summary.kt` | `SummaryLines` (pura) y `SummaryProvider`: cumpleaños de la semana para Inicio. |
-| `MainActivity.kt` | Crea el estado, pide permiso, marca, escribe, abre el correo o el mapa, comparte (.vcf, imagen, texto), guarda la imagen (MediaStore), tono (`RingtoneManager`), bloquear (`BlockedNumberContract` o la lista del sistema), importar/exportar .vcf (selector de archivos) y copia. |
+| `data/` | Lógica pura, con pruebas. `Sources` (`AllowedHost`: solo https a `raw.githubusercontent.com`; `Sources.BASE` y el repo con su nombre nuevo `Tienda-mcp` antes que el viejo `Contactos-mcp`, para el catálogo y el APK de Tienda). `Catalog` (`CatalogParser`: un archivo roto es error; una app con un campo malo, repetida o con un APK fuera de `AllowedHost` se deja fuera). `Versions` (`compareNames`, `RowState` por versionCode: No instalada, Al día, Actualizar; `UpdateAll.order`: Tienda la última). `ApkCheck` (`verify`: paquete, versionCode y firma igual a la de Tienda; `Problem`). |
+| `ui/` | `StoreState` (único dueño del estado: filas, carga, error del catálogo, instalación en curso y cola, fallo, notas abiertas, permiso) y la interfaz `Engine` (lo que la app hace fuera de la pantalla; `FakeEngine` en pruebas). |
+| `ui/screens/` | `AppsScreen` (cabecera con «Actualizar todo» y «Recargar», avisos y lista que se recarga deslizando), `AppRowView` (punto de color con la inicial, versiones, botón, progreso y novedades) y `Notices` (permiso, mensajes de error claros por cada `Problem`). Solo pintan y avisan. |
+| `ui/theme/` | `StoreColors` (sigue al teléfono: negro de noche, claro de día; acento verde). |
+| `Net.kt` | OkHttp con un guardián (`AllowedHost`) en cada petición y cada redirección; texto con tope y descarga con progreso. |
+| `Platform.kt` | PackageManager: versión instalada, firmas (propias y del APK: `GET_SIGNING_CERTIFICATES` en 28+, `GET_SIGNATURES` antes), «Instalar apps desconocidas», abrir una app. |
+| `Installer.kt` | Sesión de `PackageInstaller`, `InstallReceiver` (no exportado) e `Installs` (respuestas por sesión). En 31+, `USER_ACTION_NOT_REQUIRED` para apps que Tienda ya instaló. |
+| `AndroidEngine.kt` | El `Engine` real: catálogo (y su copia para abrir sin internet), descarga a `cache/apks`, `ApkCheck.verify`, instalación y borrado del APK. |
+| `MainActivity.kt` | Crea el estado y vuelve a leer todo al volver a la app (tras Ajustes o una instalación). |
+
+`catalog.json`: `{"format": 1, "apps": [{id, name, package, versionCode, versionName, apk, notes, color}]}`; `apk` es la
+dirección completa en `raw.githubusercontent.com`, `color` es `#RRGGBB`. Lo genera `tools/update_catalog.py` leyendo
+cada APK (`aapt2 dump badging`) y su `CHANGELOG.md` en las carpetas locales.
+
+Reglas:
+- Texto visible en `res/values/strings.xml` (español) y `values-en`.
+- Colores siempre de `StoreColors`.
+- Archivos de pantalla de unas 150 líneas como mucho; si crece, se divide.
+- `ScreenshotsTest` usa un catálogo falso (`sampleCatalog`) y `FakeEngine`; nada sale a internet.

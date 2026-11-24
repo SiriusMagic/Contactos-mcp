@@ -1,4 +1,4 @@
-// Same toolchain as Stone, so both apps build (and are signed) the same way.
+// Same toolchain as Stone and the rest of the family, so every app builds (and is signed) the same way.
 plugins {
     id("com.android.application") version "8.13.2" apply false
     kotlin("android") version "2.3.21" apply false

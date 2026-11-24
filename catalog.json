@@ -1,0 +1,195 @@
+{
+  "format": 1,
+  "apps": [
+    {
+      "id": "stone",
+      "name": "Stone",
+      "package": "com.zirakusa.stone.kotlin.preview",
+      "versionCode": 60,
+      "versionName": "1.7.26",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone/main/android-native/Stone-1.7.26-optimized.apk",
+      "notes": "Lucía (Gateway Hub) controla Stone sin internet",
+      "color": "#8E7CF0"
+    },
+    {
+      "id": "stone-video",
+      "name": "Stone Video",
+      "package": "com.zirakusa.stone.video",
+      "versionCode": 7,
+      "versionName": "0.4.3",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone-v-deo-mcp/main/android-native/StoneVideo-0.4.3.apk",
+      "notes": "Lucía (Gateway Hub) puede usar las herramientas de Stone Video en el teléfono, sin internet, mientras «Redireccionar a Hub» esté activado (las mismas reglas…",
+      "color": "#E85D9A"
+    },
+    {
+      "id": "gateway-hub",
+      "name": "Gateway Hub",
+      "package": "com.zirakusa.gatewayhub",
+      "versionCode": 25,
+      "versionName": "0.0.25",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.25.apk",
+      "notes": "Pregunta antes de cambiar algo, Busca primero de qué hablas, Stone, Calendario",
+      "color": "#E8B931"
+    },
+    {
+      "id": "telefono",
+      "name": "Teléfono",
+      "package": "com.zirakusa.telefono",
+      "versionCode": 4,
+      "versionName": "0.3.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Tel-fono.mcp/main/android/Telefono-0.3.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#4CE08A"
+    },
+    {
+      "id": "sms",
+      "name": "SMS",
+      "package": "com.zirakusa.sms",
+      "versionCode": 3,
+      "versionName": "0.1.2",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/SMS/main/android/SMS-0.1.2.apk",
+      "notes": "«Permitir» ya deja pasar",
+      "color": "#4FC3F7"
+    },
+    {
+      "id": "reloj",
+      "name": "Reloj",
+      "package": "com.zirakusa.reloj",
+      "versionCode": 4,
+      "versionName": "0.3.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Reloj-mcp/main/android/Reloj-0.3.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#FF9A1F"
+    },
+    {
+      "id": "calendario",
+      "name": "Calendario",
+      "package": "com.zirakusa.calendario",
+      "versionCode": 5,
+      "versionName": "0.3.2",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Calendario-mcp/main/android/Calendario-0.3.2.apk",
+      "notes": "Posponer",
+      "color": "#EB4D3D"
+    },
+    {
+      "id": "notas",
+      "name": "Notas",
+      "package": "com.zirakusa.notas",
+      "versionCode": 7,
+      "versionName": "0.6.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Notas.mcp/main/android/Notas-0.6.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#F5C518"
+    },
+    {
+      "id": "clima",
+      "name": "Clima",
+      "package": "com.zirakusa.clima",
+      "versionCode": 2,
+      "versionName": "0.1.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Clima-mcp/main/android/Clima-0.1.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#2F80ED"
+    },
+    {
+      "id": "camara",
+      "name": "Cámara",
+      "package": "com.zirakusa.camara",
+      "versionCode": 4,
+      "versionName": "0.2.2",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/C-mara-mcp/main/android/Camara-0.2.2.apk",
+      "notes": "«Oye Lucía, toma una foto»",
+      "color": "#9E9E9E"
+    },
+    {
+      "id": "qr",
+      "name": "QR",
+      "package": "com.zirakusa.qr",
+      "versionCode": 2,
+      "versionName": "0.1.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Qr-mcp/main/android/QR-0.1.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#26A69A"
+    },
+    {
+      "id": "redes",
+      "name": "Redes",
+      "package": "com.zirakusa.redes",
+      "versionCode": 4,
+      "versionName": "0.2.2",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Analizador-de-redes-mcp/main/android/Redes-0.2.2.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#2E9E5B"
+    },
+    {
+      "id": "brujula",
+      "name": "Brújula",
+      "package": "com.zirakusa.brujula",
+      "versionCode": 2,
+      "versionName": "0.1.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Br-jula-mcp.../main/android/Brujula-0.1.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#FF3B30"
+    },
+    {
+      "id": "nivel",
+      "name": "Nivel",
+      "package": "com.zirakusa.nivel",
+      "versionCode": 2,
+      "versionName": "0.1.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Nivel-burbuja-mcp/main/android/Nivel-0.1.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#C6F135"
+    },
+    {
+      "id": "calculadora",
+      "name": "Calculadora",
+      "package": "com.zirakusa.calculadora",
+      "versionCode": 5,
+      "versionName": "0.4.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Calculadora.mcp/main/android/Calculadora-0.4.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#FFB300"
+    },
+    {
+      "id": "filem",
+      "name": "Filem",
+      "package": "com.zirakusa.filem",
+      "versionCode": 6,
+      "versionName": "0.5.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Filem.mcp/main/android/Filem-0.5.1.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#7FD49B"
+    },
+    {
+      "id": "luma",
+      "name": "Luma",
+      "package": "app.luma.gallery",
+      "versionCode": 9,
+      "versionName": "0.6.3",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.6.3.apk",
+      "notes": "Conectar todas, Lucía, Icono de la app",
+      "color": "#B388FF"
+    },
+    {
+      "id": "inicio",
+      "name": "Inicio",
+      "package": "com.zirakusa.launcher",
+      "versionCode": 7,
+      "versionName": "0.5.2",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Laucher-mcp/main/android/Inicio-0.5.2.apk",
+      "notes": "Sin puntos rojos",
+      "color": "#F06292"
+    },
+    {
+      "id": "tienda",
+      "name": "Tienda",
+      "package": "com.zirakusa.tienda",
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Contactos-mcp/main/android/Tienda-0.1.0.apk",
+      "notes": "Apps, Actualizar todo, Seguro",
+      "color": "#3DDC97"
+    }
+  ]
+}
