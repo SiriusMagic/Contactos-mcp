@@ -75,11 +75,11 @@ class CatalogTest {
         val file = listOf(File("../../catalog.json"), File("../catalog.json"), File("catalog.json")).first { it.exists() }
         val c = CatalogParser.parse(file.readText())
         assertEquals(emptyList<String>(), c.skipped)
-        assertEquals(19, c.apps.size)
+        assertEquals(20, c.apps.size)
         assertTrue(c.apps.all { AllowedHost.allowed(it.apk) && it.apk.startsWith("https://raw.githubusercontent.com/SiriusMagic/") })
         assertTrue(c.apps.all { it.apk.endsWith("-${it.versionName}.apk") || it.apk.endsWith("-${it.versionName}-optimized.apk") })
         assertEquals("com.zirakusa.tienda", c.apps.last().packageName)
-        listOf("com.zirakusa.stone.kotlin.preview", "com.zirakusa.gatewayhub", "app.luma.gallery", "com.zirakusa.launcher")
+        listOf("com.zirakusa.stone.kotlin.preview", "com.zirakusa.gatewayhub", "app.luma.gallery", "com.zirakusa.launcher", "com.zirakusa.grabadora")
             .forEach { pkg -> assertTrue(pkg, c.apps.any { it.packageName == pkg }) }
     }
 }
