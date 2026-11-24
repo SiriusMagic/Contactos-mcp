@@ -40,6 +40,7 @@ APPS = [
     ("calculadora", "Calculadora", "calculadora.mcp", "Calculadora.mcp", "android", "Calculadora-{v}.apk", "com.zirakusa.calculadora", "#FFB300"),
     ("filem", "Filem", "filem.mcp", "Filem.mcp", "android", "Filem-{v}.apk", "com.zirakusa.filem", "#7FD49B"),
     ("luma", "Luma", "galer-a-mcp", "Galer-a-mcp", "android", "Luma-{v}.apk", "app.luma.gallery", "#B388FF"),
+    ("grabadora", "Grabadora", "grabadora-mcp", "Grabadora-mcp", "android", "Grabadora-{v}.apk", "com.zirakusa.grabadora", "#E53935"),
     ("inicio", "Inicio", "laucher-mcp", "Laucher-mcp", "android", "Inicio-{v}.apk", "com.zirakusa.launcher", "#F06292"),
     # Tienda: este repo. En GitHub se llama Contactos-mcp hasta que se renombre a Tienda-mcp; la app prueba las dos.
     ("tienda", "Tienda", os.path.basename(ROOT), "Contactos-mcp", "android", "Tienda-{v}.apk", "com.zirakusa.tienda", "#3DDC97"),

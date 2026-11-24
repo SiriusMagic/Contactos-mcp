@@ -25,20 +25,20 @@
       "id": "gateway-hub",
       "name": "Gateway Hub",
       "package": "com.zirakusa.gatewayhub",
-      "versionCode": 25,
-      "versionName": "0.0.25",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.25.apk",
-      "notes": "Pregunta antes de cambiar algo, Busca primero de qué hablas, Stone, Calendario",
+      "versionCode": 26,
+      "versionName": "0.0.26",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.26.apk",
+      "notes": "«Llama a …» sin permiso propio, Nombres parecidos, Por voz, Grabadora",
       "color": "#E8B931"
     },
     {
       "id": "telefono",
       "name": "Teléfono",
       "package": "com.zirakusa.telefono",
-      "versionCode": 4,
-      "versionName": "0.3.1",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Tel-fono.mcp/main/android/Telefono-0.3.1.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 5,
+      "versionName": "0.4.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Tel-fono.mcp/main/android/Telefono-0.4.0.apk",
+      "notes": "Filtro de llamadas no deseadas, Anuncio de voz de llamada entrante, Marcación rápida, Características del operador",
       "color": "#4CE08A"
     },
     {
@@ -105,20 +105,20 @@
       "id": "qr",
       "name": "QR",
       "package": "com.zirakusa.qr",
-      "versionCode": 2,
-      "versionName": "0.1.1",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Qr-mcp/main/android/QR-0.1.1.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 3,
+      "versionName": "0.2.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Qr-mcp/main/android/QR-0.2.0.apk",
+      "notes": "Ajustes de lectura nuevos, Guardar duplicados, Crear evento, Crear códigos de barras",
       "color": "#26A69A"
     },
     {
       "id": "redes",
       "name": "Redes",
       "package": "com.zirakusa.redes",
-      "versionCode": 4,
-      "versionName": "0.2.2",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Analizador-de-redes-mcp/main/android/Redes-0.2.2.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 5,
+      "versionName": "0.3.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Analizador-de-redes-mcp/main/android/Redes-0.3.0.apk",
+      "notes": "Latencia, Roaming de punto de acceso, Descubrir, Velocidad",
       "color": "#2E9E5B"
     },
     {
@@ -170,6 +170,16 @@
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.6.3.apk",
       "notes": "Conectar todas, Lucía, Icono de la app",
       "color": "#B388FF"
+    },
+    {
+      "id": "grabadora",
+      "name": "Grabadora",
+      "package": "com.zirakusa.grabadora",
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Grabadora-mcp/main/android/Grabadora-0.1.0.apk",
+      "notes": "Lista «Grabadora», Grabar, Reproducir, Selección",
+      "color": "#E53935"
     },
     {
       "id": "inicio",
