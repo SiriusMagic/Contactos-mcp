@@ -77,7 +77,7 @@ def from_gradle(folder, module):
 
 
 def find_apk(folder, apk_dir, pattern):
-    regex = re.compile("^" + re.escape(pattern).replace(re.escape("{v}"), r"([0-9][0-9A-Za-z.\-]*?)") + "$")
+    regex = re.compile("^" + re.escape(pattern).replace(re.escape("{v}"), r"([0-9][0-9.]*)") + "$")
     found = []
     for f in os.listdir(os.path.join(folder, apk_dir)):
         m = regex.match(f)

@@ -25,10 +25,10 @@
       "id": "gateway-hub",
       "name": "Gateway Hub",
       "package": "com.zirakusa.gatewayhub",
-      "versionCode": 26,
-      "versionName": "0.0.26",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.26.apk",
-      "notes": "«Llama a …» sin permiso propio, Nombres parecidos, Por voz, Grabadora",
+      "versionCode": 29,
+      "versionName": "0.0.29",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.29.apk",
+      "notes": "MCP → Apps de este teléfono, Lucía y Stone Video, «Llama a …»",
       "color": "#E8B931"
     },
     {
