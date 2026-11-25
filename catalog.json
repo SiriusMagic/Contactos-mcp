@@ -15,10 +15,10 @@
       "id": "stone-video",
       "name": "Stone Video",
       "package": "com.zirakusa.stone.video",
-      "versionCode": 8,
-      "versionName": "0.5.0",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone-v-deo-mcp/main/android-native/StoneVideo-0.5.0.apk",
-      "notes": "Mascotas nuevas",
+      "versionCode": 9,
+      "versionName": "0.5.1",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone-v-deo-mcp/main/android-native/StoneVideo-0.5.1.apk",
+      "notes": "Sin el Pingüino",
       "color": "#E85D9A"
     },
     {
@@ -75,10 +75,10 @@
       "id": "notas",
       "name": "Notas",
       "package": "com.zirakusa.notas",
-      "versionCode": 7,
-      "versionName": "0.6.1",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Notas.mcp/main/android/Notas-0.6.1.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 8,
+      "versionName": "0.7.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Notas.mcp/main/android/Notas-0.7.0.apk",
+      "notes": "Iconos nuevos",
       "color": "#F5C518"
     },
     {
