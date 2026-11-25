@@ -163,7 +163,7 @@
     },
     {
       "id": "luma",
-      "name": "Luma",
+      "name": "Galería",
       "package": "app.luma.gallery",
       "versionCode": 10,
       "versionName": "0.6.4",
