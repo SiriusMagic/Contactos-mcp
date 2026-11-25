@@ -7,14 +7,15 @@ import com.zirakusa.tienda.ui.Engine
 import com.zirakusa.tienda.ui.Failure
 import com.zirakusa.tienda.ui.Phase
 
-fun app(id: String, name: String, pkg: String, code: Long, version: String, color: Int = 0x3DDC97, notes: String = "") =
+fun app(id: String, name: String, pkg: String, code: Long, version: String, color: Int = 0x3DDC97, notes: String = "",
+    size: Long = 0, category: String = "") =
     CatalogApp(id, name, pkg, code, version, "https://raw.githubusercontent.com/SiriusMagic/$name/main/android/$name-$version.apk",
-        notes, color)
+        notes, color, size, category)
 
 /** A small family for the tests: Reloj and Notas need an update, Clima is up to date, QR is not installed. */
 val sampleCatalog = Catalog(listOf(
     app("tienda", "Tienda", "com.zirakusa.tienda", 2, "0.1.1", 0x3DDC97, "Actualizar todo y notas de cada versión."),
-    app("reloj", "Reloj", "com.zirakusa.reloj", 5, "0.3.2", 0xFF9A1F, "Conectar todas, Lucía, Icono de la app"),
+    app("reloj", "Reloj", "com.zirakusa.reloj", 5, "0.3.2", 0xFF9A1F, "Conectar todas, Lucía, Icono de la app", 13_000_000, "Herramientas"),
     app("notas", "Notas", "com.zirakusa.notas", 8, "0.6.2", 0xF5C518, "Etiquetas de colores"),
     app("clima", "Clima", "com.zirakusa.clima", 2, "0.1.1", 0x2F80ED),
     app("qr", "QR", "com.zirakusa.qr", 2, "0.1.1", 0x26A69A, "Crear códigos de Wi-Fi"),
@@ -49,4 +50,6 @@ class FakeEngine(
     override fun open(packageName: String) { log += "open $packageName" }
     override fun onUnmeteredNetwork() = wifi
     override fun ownFingerprint() = "34b88716ba31a8ca170624c1c009c11dd23e182148731f0889c98404b34182d4"
+    override suspend fun icon(app: CatalogApp): android.graphics.Bitmap? = null
+    override fun uninstall(packageName: String) { log += "uninstall $packageName" }
 }

@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Installs and updates the family's apps with PackageInstaller («Instalar apps desconocidas» must be allowed). -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- «Desinstalar» opens Android's own dialog; the person confirms there. -->
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <!-- Android 12+: updates of apps Tienda installed may skip the extra confirmation (Android can still ask). -->
     <uses-permission android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION" />
     <queries>
@@ -25,12 +27,44 @@
         android:usesCleartextTraffic="false"
         android:theme="@android:style/Theme.Material.NoActionBar">
         <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTask"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
+        <!-- The launcher icon chosen in Ajustes (one alias enabled at a time). Never rename an alias: Android keeps the
+             enabled state by name, and a renamed one could leave Store without an icon after an update. -->
+        <activity-alias android:name=".Home" android:targetActivity=".MainActivity" android:exported="true"
+            android:enabled="true" android:icon="@mipmap/ic_launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+        <activity-alias android:name=".HomeAstronauta" android:targetActivity=".MainActivity" android:exported="true"
+            android:enabled="false" android:icon="@mipmap/ic_launcher_astronaut">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".HomeDisco" android:targetActivity=".MainActivity" android:exported="true"
+            android:enabled="false" android:icon="@mipmap/ic_launcher_disc">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".HomeSaturno" android:targetActivity=".MainActivity" android:exported="true"
+            android:enabled="false" android:icon="@mipmap/ic_launcher_saturn">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".HomeOsa" android:targetActivity=".MainActivity" android:exported="true"
+            android:enabled="false" android:icon="@mipmap/ic_launcher_bear">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
         <!-- PackageInstaller's answers (installed, failed, needs the user to confirm). Only our own PendingIntent. -->
         <receiver android:name=".InstallReceiver" android:exported="false" />
     </application>

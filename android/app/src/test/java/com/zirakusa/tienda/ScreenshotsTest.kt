@@ -34,7 +34,7 @@ class ScreenshotsTest {
 
     private fun shot(name: String) { compose.waitForIdle(); onView(isRoot()).captureRoboImage("build/screenshots/tienda-$name.png") }
     private fun show(state: StoreState, dark: Boolean = true) = compose.setContent {
-        StoreTheme(dark) { if (state.page == com.zirakusa.tienda.ui.Page.SETTINGS) com.zirakusa.tienda.ui.screens.SettingsScreen(state) else AppsScreen(state) }
+        StoreTheme(dark) { if (state.page == com.zirakusa.tienda.ui.Page.SETTINGS) com.zirakusa.tienda.ui.screens.SettingsScreen(state) { com.zirakusa.tienda.ui.screens.IconCard(AppIcon.SPARK) {} } else AppsScreen(state) }
     }
 
     @Test fun settings() {
@@ -42,7 +42,8 @@ class ScreenshotsTest {
         show(state)
         compose.onNodeWithContentDescription("Ajustes").performClick()
         compose.onNodeWithText("Solo con Wi‑Fi").assertExists()
-        compose.onNodeWithText("Tienda 0.1.0").assertExists()
+        compose.onNodeWithText("Store 0.1.0").assertExists()
+        compose.onNodeWithText("Osa Mayor").assertExists()
         shot("settings")
         compose.onNodeWithText("Mostrar no instaladas").performClick()
         assertEquals(false, state.showNotInstalled)
@@ -55,20 +56,22 @@ class ScreenshotsTest {
         val engine = FakeEngine()
         val state = StoreState(engine, CoroutineScope(Dispatchers.Unconfined), "com.zirakusa.tienda").apply { start() }
         show(state)
-        compose.onNodeWithText("Actualizar todo (3)").assertExists()
-        compose.onNodeWithText("Instalada 0.3.1 · Nueva 0.3.2").assertExists()
-        compose.onNodeWithText("Instalada 0.1.1").assertExists()
-        compose.onNodeWithText("No instalada · Nueva 0.1.1").assertExists()
+        compose.onNodeWithText("Actualizaciones disponibles").assertExists()
+        compose.onNodeWithText("Herramientas · 0.3.1 → 0.3.2").assertExists()
+        compose.onNodeWithText("12,4 MB").assertExists()
+        assertEquals(2, compose.onAllNodes(androidx.compose.ui.test.hasText("Versión 0.1.1")).fetchSemanticsNodes().size)   // Clima and QR
+        compose.onNodeWithText("Esta app · 0.1.0").assertDoesNotExist()
         compose.onNodeWithText("Abrir").assertExists()
         compose.onNodeWithText("Instalar").assertExists()
         compose.onNodeWithContentDescription("Recargar").assertExists()
         shot("apps")
         compose.onNodeWithText("Reloj").performClick()
         compose.onNodeWithText("Novedades de 0.3.2").assertExists()
+        compose.onNodeWithText("Desinstalar").assertExists()
         compose.onNodeWithText("Conectar todas, Lucía, Icono de la app").assertExists()
         shot("notes")
         state.failure = FailedApp("Notas", Failure(Problem.WRONG_SIGNATURE))
-        compose.onNodeWithText("Notas no se instaló: no está firmado por el mismo desarrollador que Tienda. Por seguridad, nunca se instala.")
+        compose.onNodeWithText("Notas no se instaló: no está firmado por el mismo desarrollador que Store. Por seguridad, nunca se instala.")
             .assertExists()
         shot("refused")
         compose.onNodeWithText("Cerrar").performClick()
@@ -86,8 +89,9 @@ class ScreenshotsTest {
         }
         val state = StoreState(slow, CoroutineScope(Dispatchers.Unconfined), "com.zirakusa.tienda").apply { start() }
         show(state)
-        compose.onNodeWithText("Actualizar todo (3)").performClick()
-        compose.onNodeWithText("Descargando… 42 %").assertExists()
+        compose.onNodeWithText("Actualizar todo").performClick()
+        compose.onNodeWithText("42 % de 12,4 MB").assertExists()
+        assertEquals(3, compose.onAllNodes(androidx.compose.ui.test.hasText("Cancelar")).fetchSemanticsNodes().size)
         assertEquals(2, compose.onAllNodes(androidx.compose.ui.test.hasText("En cola")).fetchSemanticsNodes().size)
         shot("updating")
         gate.complete(Unit)
@@ -105,7 +109,7 @@ class ScreenshotsTest {
     @Test fun lightList() {
         val state = StoreState(FakeEngine(), CoroutineScope(Dispatchers.Unconfined), "com.zirakusa.tienda").apply { start() }
         show(state, dark = false)
-        compose.onNodeWithText("Instalada 0.1.0 · Nueva 0.1.1").assertExists()
+        compose.onNodeWithText("0.1.0 → 0.1.1").assertExists()
         shot("apps-light")
     }
 }

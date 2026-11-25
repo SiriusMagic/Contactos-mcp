@@ -1,17 +1,15 @@
 <resources>
-    <string name="app_name">Tienda</string>
     <string name="subtitle">The family\'s apps</string>
     <string name="reload">Reload</string>
-    <string name="update_all">Update all (%1$d)</string>
     <string name="all_up_to_date">All up to date</string>
     <string name="loading">Loading the catalog…</string>
     <string name="install">Install</string>
     <string name="update">Update</string>
     <string name="open">Open</string>
-    <string name="row_not_installed">Not installed · New %1$s</string>
-    <string name="row_update">Installed %1$s · New %2$s</string>
-    <string name="row_up_to_date">Installed %1$s</string>
-    <string name="row_self">This app · Installed %1$s</string>
+    <string name="row_not_installed">Version %1$s</string>
+    <string name="row_update">%1$s → %2$s</string>
+    <string name="row_up_to_date">Version %1$s</string>
+    <string name="row_self">This app · %1$s</string>
     <string name="downloading">Downloading… %1$d %%</string>
     <string name="verifying">Checking the signature…</string>
     <string name="installing">Installing…</string>
@@ -19,7 +17,7 @@
     <string name="notes_title">What\'s new in %1$s</string>
     <string name="no_notes">No notes.</string>
     <string name="allow_title">Allow «Install unknown apps»</string>
-    <string name="allow_text">Android lets Tienda install the family\'s apps only after you allow it once in Settings.</string>
+    <string name="allow_text">Android lets Store install the family\'s apps only after you allow it once in Settings.</string>
     <string name="allow_button">Allow</string>
     <string name="close">Close</string>
     <string name="empty">No apps yet. Tap Reload.</string>
@@ -31,7 +29,7 @@
     <string name="fail_unreadable">%1$s was not installed: the file is not a valid APK or its signature could not be read.</string>
     <string name="fail_wrong_package">%1$s was not installed: the APK belongs to another app (its package is not the catalog\'s).</string>
     <string name="fail_wrong_version">%1$s was not installed: the APK\'s version is not the catalog\'s.</string>
-    <string name="fail_wrong_signature">%1$s was not installed: it is not signed by the same developer as Tienda. For safety, it is never installed.</string>
+    <string name="fail_wrong_signature">%1$s was not installed: it is not signed by the same developer as Store. For safety, it is never installed.</string>
     <string name="fail_not_allowed">%1$s was not installed: «Install unknown apps» is not allowed yet.</string>
     <string name="fail_cancelled">The installation of %1$s was cancelled.</string>
     <string name="fail_install">Android did not install %1$s: %2$s</string>
@@ -48,9 +46,22 @@
     <string name="show_new">Show not installed</string>
     <string name="show_new_hint">Also shows the family apps you do not have yet.</string>
     <string name="check_on_open">Check on open</string>
-    <string name="check_on_open_hint">Downloads the catalog every time you open Tienda. Off, it uses the last one until you tap Reload.</string>
+    <string name="check_on_open_hint">Downloads the catalog every time you open Store. Off, it uses the last one until you tap Reload.</string>
     <string name="about">About</string>
-    <string name="about_version">Tienda %1$s</string>
-    <string name="about_signature">Signature (SHA‑256). Tienda only installs apps with this same signature:</string>
-    <string name="about_privacy">No ads or analytics. Tienda sends nothing: it only downloads the catalog and the apps from raw.githubusercontent.com.</string>
+    <string name="about_version">Store %1$s</string>
+    <string name="about_signature">Signature (SHA‑256). Store only installs apps with this same signature:</string>
+    <string name="about_privacy">No ads or analytics. Store sends nothing: it only downloads the catalog and the apps from raw.githubusercontent.com.</string>
+    <string name="icon_title">App icon</string>
+    <string name="icon_spark">Star</string>
+    <string name="icon_astronaut">Astronaut</string>
+    <string name="icon_disc">Disc</string>
+    <string name="icon_saturn">Saturn</string>
+    <string name="icon_bear">Big Dipper</string>
+    <string name="icon_hint">Changes the home-screen icon. Some launchers take a few seconds to show it.</string>
+    <string name="updates_available">Updates available</string>
+    <string name="update_all_short">Update all</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="cancel">Cancel</string>
+    <string name="verified">Verified</string>
+    <string name="downloading_of">%1$d%% of %2$s</string>
 </resources>

@@ -1,4 +1,4 @@
-<!-- Tienda: a green shopping bag with a down arrow (install). -->
+<!-- Tienda (Store): a green shopping bag with a down arrow (themed icon, Android 13+; launcher icons are mipmap/ic_launcher_*). -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
     <path android:fillColor="#3DDC97" android:pathData="M45,40a9,9 0,0 1,18 0h-4a5,5 0,0 0,-10 0z" />

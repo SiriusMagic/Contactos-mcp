@@ -1,3 +1,8 @@
 <resources>
-    <color name="launcher_background">#0B1F17</color>
+    <!-- Launcher icon backgrounds (Ajustes › Icono de la app), the colour at each picture's edge. Estrella is the default. -->
+    <color name="launcher_background_spark">#0A92F2</color>
+    <color name="launcher_background_astronaut">#0381CB</color>
+    <color name="launcher_background_disc">#021B56</color>
+    <color name="launcher_background_saturn">#1388D9</color>
+    <color name="launcher_background_bear">#042969</color>
 </resources>

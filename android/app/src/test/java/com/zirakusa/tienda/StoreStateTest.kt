@@ -111,4 +111,40 @@ class StoreStateTest {
         assertEquals("34:B8:87:16:BA:31:A8:CA:17:06:24:C1:C0:09:C1:1D:D2:3E:18:21:48:73:1F:08:89:C9:84:04:B3:41:82:D4", state.fingerprint)
         assertNull(SettingsRules.fingerprint("not hex")); assertNull(SettingsRules.fingerprint(null)); assertNull(SettingsRules.fingerprint("ab"))
     }
+
+    @Test fun cancelStopsTheDownloadAndTheQueue() {
+        val gate = kotlinx.coroutines.CompletableDeferred<Unit>()
+        val started = mutableListOf<String>()
+        val slow = object : com.zirakusa.tienda.ui.Engine by FakeEngine() {
+            override suspend fun install(app: com.zirakusa.tienda.data.CatalogApp, onJob: (com.zirakusa.tienda.ui.Phase, Float) -> Unit): Failure? {
+                started += app.id; onJob(com.zirakusa.tienda.ui.Phase.DOWNLOADING, 0.3f); gate.await(); return null
+            }
+        }
+        val state = StoreState(slow, scope, "com.zirakusa.tienda").apply { start() }
+        state.updateAll()
+        assertTrue(state.busy); assertEquals(2, state.queue.size)
+        state.cancel()
+        assertFalse(state.busy); assertNull(state.job); assertNull(state.failure)
+        assertEquals(listOf("reloj"), started)                                        // nothing else started
+        assertEquals(3, state.updates)                                                // nothing changed
+    }
+
+    @Test fun uninstallOnlyInstalledAppsAndNeverStoreItself() {
+        val engine = FakeEngine()
+        val state = StoreState(engine, scope, "com.zirakusa.tienda").apply { start() }
+        state.rows.forEach { state.uninstall(it) }
+        assertEquals(listOf("uninstall com.zirakusa.reloj", "uninstall com.zirakusa.notas", "uninstall com.zirakusa.clima"), engine.log)
+    }
+
+    @Test fun sizesAndPercent() {
+        val es = java.util.Locale.forLanguageTag("es")
+        assertEquals("", com.zirakusa.tienda.data.Formats.size(0, es))
+        assertEquals("512 B", com.zirakusa.tienda.data.Formats.size(512, es))
+        assertEquals("12,4 MB", com.zirakusa.tienda.data.Formats.size(13_000_000, es))
+        assertEquals("64,1 MB", com.zirakusa.tienda.data.Formats.size(67_260_453, es))
+        assertEquals("150 MB", com.zirakusa.tienda.data.Formats.size(157_286_400, es))
+        assertEquals("1.3 GB", com.zirakusa.tienda.data.Formats.size(1_400_000_000, java.util.Locale.US))
+        assertEquals(0, com.zirakusa.tienda.data.Formats.percent(-1f)); assertEquals(42, com.zirakusa.tienda.data.Formats.percent(0.42f))
+        assertEquals(100, com.zirakusa.tienda.data.Formats.percent(3f))
+    }
 }

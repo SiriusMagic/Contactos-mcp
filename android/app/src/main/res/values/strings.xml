@@ -1,17 +1,16 @@
 <resources>
-    <string name="app_name">Tienda</string>
+    <string name="app_name" translatable="false">Store</string>
     <string name="subtitle">Las apps de la familia</string>
     <string name="reload">Recargar</string>
-    <string name="update_all">Actualizar todo (%1$d)</string>
     <string name="all_up_to_date">Todo al día</string>
     <string name="loading">Cargando el catálogo…</string>
     <string name="install">Instalar</string>
     <string name="update">Actualizar</string>
     <string name="open">Abrir</string>
-    <string name="row_not_installed">No instalada · Nueva %1$s</string>
-    <string name="row_update">Instalada %1$s · Nueva %2$s</string>
-    <string name="row_up_to_date">Instalada %1$s</string>
-    <string name="row_self">Esta app · Instalada %1$s</string>
+    <string name="row_not_installed">Versión %1$s</string>
+    <string name="row_update">%1$s → %2$s</string>
+    <string name="row_up_to_date">Versión %1$s</string>
+    <string name="row_self">Esta app · %1$s</string>
     <string name="downloading">Descargando… %1$d %%</string>
     <string name="verifying">Comprobando la firma…</string>
     <string name="installing">Instalando…</string>
@@ -19,7 +18,7 @@
     <string name="notes_title">Novedades de %1$s</string>
     <string name="no_notes">Sin notas.</string>
     <string name="allow_title">Permite «Instalar apps desconocidas»</string>
-    <string name="allow_text">Android solo deja a Tienda instalar las apps de la familia si lo permites una vez en Ajustes.</string>
+    <string name="allow_text">Android solo deja a Store instalar las apps de la familia si lo permites una vez en Ajustes.</string>
     <string name="allow_button">Permitir</string>
     <string name="close">Cerrar</string>
     <string name="empty">Sin apps todavía. Toca Recargar.</string>
@@ -31,7 +30,7 @@
     <string name="fail_unreadable">%1$s no se instaló: el archivo no es un APK válido o no se pudo leer su firma.</string>
     <string name="fail_wrong_package">%1$s no se instaló: el APK es de otra app (su paquete no es el del catálogo).</string>
     <string name="fail_wrong_version">%1$s no se instaló: la versión del APK no es la del catálogo.</string>
-    <string name="fail_wrong_signature">%1$s no se instaló: no está firmado por el mismo desarrollador que Tienda. Por seguridad, nunca se instala.</string>
+    <string name="fail_wrong_signature">%1$s no se instaló: no está firmado por el mismo desarrollador que Store. Por seguridad, nunca se instala.</string>
     <string name="fail_not_allowed">%1$s no se instaló: falta permitir «Instalar apps desconocidas».</string>
     <string name="fail_cancelled">Se canceló la instalación de %1$s.</string>
     <string name="fail_install">Android no instaló %1$s: %2$s</string>
@@ -48,9 +47,22 @@
     <string name="show_new">Mostrar no instaladas</string>
     <string name="show_new_hint">Muestra también las apps de la familia que aún no tienes.</string>
     <string name="check_on_open">Buscar novedades al abrir</string>
-    <string name="check_on_open_hint">Descarga el catálogo cada vez que abres Tienda. Si lo apagas, usa el último hasta que toques Recargar.</string>
+    <string name="check_on_open_hint">Descarga el catálogo cada vez que abres Store. Si lo apagas, usa el último hasta que toques Recargar.</string>
     <string name="about">Acerca de</string>
-    <string name="about_version">Tienda %1$s</string>
-    <string name="about_signature">Firma (SHA‑256). Tienda solo instala apps con esta misma firma:</string>
-    <string name="about_privacy">Sin anuncios ni estadísticas. Tienda no envía nada: solo descarga el catálogo y las apps de raw.githubusercontent.com.</string>
+    <string name="about_version">Store %1$s</string>
+    <string name="about_signature">Firma (SHA‑256). Store solo instala apps con esta misma firma:</string>
+    <string name="about_privacy">Sin anuncios ni estadísticas. Store no envía nada: solo descarga el catálogo y las apps de raw.githubusercontent.com.</string>
+    <string name="icon_title">Icono de la app</string>
+    <string name="icon_spark">Estrella</string>
+    <string name="icon_astronaut">Astronauta</string>
+    <string name="icon_disc">Disco</string>
+    <string name="icon_saturn">Saturno</string>
+    <string name="icon_bear">Osa Mayor</string>
+    <string name="icon_hint">Cambia el icono de la pantalla de inicio. Algunos lanzadores tardan unos segundos en mostrarlo.</string>
+    <string name="updates_available">Actualizaciones disponibles</string>
+    <string name="update_all_short">Actualizar todo</string>
+    <string name="uninstall">Desinstalar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="verified">Verificada</string>
+    <string name="downloading_of">%1$d %% de %2$s</string>
 </resources>

@@ -9,7 +9,10 @@
       "versionName": "1.7.28",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone/main/android-native/Stone-1.7.28-optimized.apk",
       "notes": "«Permitir MCP local» en tu Stone de siempre",
-      "color": "#8E7CF0"
+      "color": "#8E7CF0",
+      "size": 4600868,
+      "category": "Música",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/stone.png"
     },
     {
       "id": "stone-video",
@@ -19,7 +22,10 @@
       "versionName": "0.5.1",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone-v-deo-mcp/main/android-native/StoneVideo-0.5.1.apk",
       "notes": "Sin el Pingüino",
-      "color": "#E85D9A"
+      "color": "#E85D9A",
+      "size": 5108794,
+      "category": "Video",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/stone-video.png"
     },
     {
       "id": "gateway-hub",
@@ -29,7 +35,10 @@
       "versionName": "0.0.37",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.37.apk",
       "notes": "«… en segundo plano» / «… de fondo»",
-      "color": "#E8B931"
+      "color": "#E8B931",
+      "size": 67456894,
+      "category": "Asistente",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/gateway-hub.png"
     },
     {
       "id": "telefono",
@@ -39,7 +48,10 @@
       "versionName": "0.4.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Tel-fono.mcp/main/android/Telefono-0.4.0.apk",
       "notes": "Filtro de llamadas no deseadas, Anuncio de voz de llamada entrante, Marcación rápida, Características del operador",
-      "color": "#4CE08A"
+      "color": "#4CE08A",
+      "size": 1874977,
+      "category": "Comunicación",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/telefono.png"
     },
     {
       "id": "sms",
@@ -49,7 +61,10 @@
       "versionName": "0.1.2",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/SMS/main/android/SMS-0.1.2.apk",
       "notes": "«Permitir» ya deja pasar",
-      "color": "#4FC3F7"
+      "color": "#4FC3F7",
+      "size": 1593053,
+      "category": "Comunicación",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/sms.png"
     },
     {
       "id": "reloj",
@@ -59,7 +74,10 @@
       "versionName": "0.3.1",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Reloj-mcp/main/android/Reloj-0.3.1.apk",
       "notes": "Conectar todas, Lucía, Icono de la app",
-      "color": "#FF9A1F"
+      "color": "#FF9A1F",
+      "size": 1704233,
+      "category": "Herramientas",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/reloj.png"
     },
     {
       "id": "calendario",
@@ -69,7 +87,10 @@
       "versionName": "0.3.2",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Calendario-mcp/main/android/Calendario-0.3.2.apk",
       "notes": "Posponer",
-      "color": "#EB4D3D"
+      "color": "#EB4D3D",
+      "size": 1660885,
+      "category": "Productividad",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/calendario.png"
     },
     {
       "id": "notas",
@@ -79,7 +100,10 @@
       "versionName": "0.7.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Notas.mcp/main/android/Notas-0.7.0.apk",
       "notes": "Iconos nuevos",
-      "color": "#F5C518"
+      "color": "#F5C518",
+      "size": 16099423,
+      "category": "Productividad",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/notas.png"
     },
     {
       "id": "clima",
@@ -89,7 +113,10 @@
       "versionName": "0.2.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Clima-mcp/main/android/Clima-0.2.0.apk",
       "notes": "Iconos nuevos",
-      "color": "#2F80ED"
+      "color": "#2F80ED",
+      "size": 1864160,
+      "category": "El tiempo",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/clima.png"
     },
     {
       "id": "camara",
@@ -99,7 +126,10 @@
       "versionName": "0.2.2",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/C-mara-mcp/main/android/Camara-0.2.2.apk",
       "notes": "«Oye Lucía, toma una foto»",
-      "color": "#9E9E9E"
+      "color": "#9E9E9E",
+      "size": 2811825,
+      "category": "Fotografía",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/camara.png"
     },
     {
       "id": "qr",
@@ -109,7 +139,10 @@
       "versionName": "0.2.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Qr-mcp/main/android/QR-0.2.0.apk",
       "notes": "Ajustes de lectura nuevos, Guardar duplicados, Crear evento, Crear códigos de barras",
-      "color": "#26A69A"
+      "color": "#26A69A",
+      "size": 2870457,
+      "category": "Herramientas",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/qr.png"
     },
     {
       "id": "redes",
@@ -119,7 +152,10 @@
       "versionName": "0.3.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Analizador-de-redes-mcp/main/android/Redes-0.3.0.apk",
       "notes": "Latencia, Roaming de punto de acceso, Descubrir, Velocidad",
-      "color": "#2E9E5B"
+      "color": "#2E9E5B",
+      "size": 1735861,
+      "category": "Herramientas",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/redes.png"
     },
     {
       "id": "brujula",
@@ -129,7 +165,10 @@
       "versionName": "0.1.1",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Br-jula-mcp.../main/android/Brujula-0.1.1.apk",
       "notes": "Conectar todas, Lucía, Icono de la app",
-      "color": "#FF3B30"
+      "color": "#FF3B30",
+      "size": 1517545,
+      "category": "Herramientas",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/brujula.png"
     },
     {
       "id": "nivel",
@@ -139,7 +178,10 @@
       "versionName": "0.2.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Nivel-burbuja-mcp/main/android/Nivel-0.2.0.apk",
       "notes": "Iconos nuevos",
-      "color": "#C6F135"
+      "color": "#C6F135",
+      "size": 1993602,
+      "category": "Herramientas",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/nivel.png"
     },
     {
       "id": "calculadora",
@@ -149,7 +191,10 @@
       "versionName": "0.4.1",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Calculadora.mcp/main/android/Calculadora-0.4.1.apk",
       "notes": "Conectar todas, Lucía, Icono de la app",
-      "color": "#FFB300"
+      "color": "#FFB300",
+      "size": 1582744,
+      "category": "Herramientas",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/calculadora.png"
     },
     {
       "id": "filem",
@@ -159,7 +204,10 @@
       "versionName": "0.6.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Filem.mcp/main/android/Filem-0.6.0.apk",
       "notes": "Iconos nuevos",
-      "color": "#7FD49B"
+      "color": "#7FD49B",
+      "size": 2310741,
+      "category": "Archivos",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/filem.png"
     },
     {
       "id": "luma",
@@ -169,7 +217,10 @@
       "versionName": "0.8.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.8.0.apk",
       "notes": "Editar fotos dentro de Galería, Estudio IA, Recortar, Ajustes",
-      "color": "#B388FF"
+      "color": "#B388FF",
+      "size": 33002575,
+      "category": "Fotografía",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/luma.png"
     },
     {
       "id": "grabadora",
@@ -179,7 +230,10 @@
       "versionName": "0.1.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Grabadora-mcp/main/android/Grabadora-0.1.0.apk",
       "notes": "Lista «Grabadora», Grabar, Reproducir, Selección",
-      "color": "#E53935"
+      "color": "#E53935",
+      "size": 1650177,
+      "category": "Audio",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/grabadora.png"
     },
     {
       "id": "inicio",
@@ -189,17 +243,23 @@
       "versionName": "0.6.0",
       "apk": "https://raw.githubusercontent.com/SiriusMagic/Laucher-mcp/main/android/Inicio-0.6.0.apk",
       "notes": "Nuevo diseño «Widgets»",
-      "color": "#F06292"
+      "color": "#F06292",
+      "size": 1689293,
+      "category": "Personalización",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/inicio.png"
     },
     {
       "id": "tienda",
-      "name": "Tienda",
+      "name": "Store",
       "package": "com.zirakusa.tienda",
-      "versionCode": 2,
-      "versionName": "0.2.0",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/android/Tienda-0.2.0.apk",
-      "notes": "Ajustes",
-      "color": "#3DDC97"
+      "versionCode": 3,
+      "versionName": "0.3.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/android/Tienda-0.3.0.apk",
+      "notes": "Se llama Store, Cada app con su icono real, Botones redondeados, Descarga más clara",
+      "color": "#3DDC97",
+      "size": 1531850,
+      "category": "Tienda",
+      "icon": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/tienda.png"
     }
   ]
 }

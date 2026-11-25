@@ -4,7 +4,10 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-/** One app of catalog.json. [color] is 0xRRGGBB (the dot with the initial). */
+/**
+ * One app of catalog.json. [color] is 0xRRGGBB (behind the initial while there is no icon). Optional: [size] of the APK in
+ * bytes (0 = unknown), [category] («Herramientas»…) and [icon], a PNG on [AllowedHost] (null = the initial).
+ */
 data class CatalogApp(
     val id: String,
     val name: String,
@@ -14,6 +17,9 @@ data class CatalogApp(
     val apk: String,
     val notes: String,
     val color: Int,
+    val size: Long = 0,
+    val category: String = "",
+    val icon: String? = null,
 )
 
 /** The apps that passed every check, and what was wrong with the ones left out (for the log of an agent, not the user). */
@@ -74,6 +80,10 @@ object CatalogParser {
         }
         val notes = (o.opt("notes") as? String).orEmpty().trim().take(500)
         val color = text("color").also { require(COLOR.matches(it)) { "bad color" } }.substring(1).toInt(16)
-        return CatalogApp(id, name, pkg, code, versionName, apk, notes, color)
+        // Optional: a wrong one is ignored (the app still shows), never trusted.
+        val size = (o.opt("size") as? Number)?.toLong()?.takeIf { it in 1..ApkCheck.MAX_BYTES } ?: 0L
+        val category = (o.opt("category") as? String).orEmpty().trim().take(30)
+        val icon = (o.opt("icon") as? String)?.trim()?.takeIf { AllowedHost.allowed(it) && it.lowercase().endsWith(".png") }
+        return CatalogApp(id, name, pkg, code, versionName, apk, notes, color, size, category, icon)
     }
 }

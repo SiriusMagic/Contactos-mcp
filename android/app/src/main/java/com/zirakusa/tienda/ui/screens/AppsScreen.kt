@@ -2,7 +2,6 @@ package com.zirakusa.tienda.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -11,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -76,12 +76,13 @@ import com.zirakusa.tienda.ui.theme.StoreColors
         }
     }
     val count = state.updates
-    Box(Modifier.padding(horizontal = 16.dp)) {
-        Button(onClick = state::updateAll, enabled = count > 0 && !state.busy, modifier = Modifier.fillMaxWidth(),
+    Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 16.dp, top = 6.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(if (count > 0) stringResource(R.string.updates_available) else stringResource(R.string.all_up_to_date),
+            Modifier.weight(1f), fontSize = 17.sp, fontWeight = FontWeight.SemiBold, maxLines = 1)
+        if (count > 0) Button(onClick = state::updateAll, enabled = !state.busy, shape = CircleShape,
             colors = ButtonDefaults.buttonColors(containerColor = StoreColors.Accent, contentColor = StoreColors.OnAccent,
                 disabledContainerColor = StoreColors.Chip, disabledContentColor = StoreColors.Muted)) {
-            Text(if (count > 0) stringResource(R.string.update_all, count) else stringResource(R.string.all_up_to_date),
-                fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.update_all_short), fontWeight = FontWeight.SemiBold)
         }
     }
     Spacer(Modifier.height(4.dp))

@@ -52,6 +52,10 @@ interface Engine {
     fun onUnmeteredNetwork(): Boolean
     /** SHA-256 of Tienda's own signing certificate, in hex (for Ajustes › Acerca de). */
     fun ownFingerprint(): String?
+    /** The app's icon: the installed one, else the catalog's PNG (kept in the cache); null = show the initial. */
+    suspend fun icon(app: CatalogApp): android.graphics.Bitmap?
+    /** Android's «¿Desinstalar?» for [packageName] (only ever after a tap; the person confirms in Android's dialog). */
+    fun uninstall(packageName: String)
 }
 
 /** The only owner of the screen's state. The screens paint it and call these functions; nothing else changes it. */
@@ -75,6 +79,8 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
     var expanded by mutableStateOf<String?>(null)
     var canInstall by mutableStateOf(true); private set
     private var catalog: Catalog? = null
+    /** The «Instalar / Actualizar todo» running now (Cancelar stops it while it downloads). */
+    private var running: kotlinx.coroutines.Job? = null
 
     /** The rows the list shows (Ajustes › «Mostrar no instaladas»). */
     val visibleRows get() = SettingsRules.visible(rows, showNotInstalled)
@@ -133,6 +139,14 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
 
     fun allowInstalls() = engine.allowInstalls()
 
+    suspend fun icon(app: CatalogApp) = engine.icon(app)
+
+    /** «Desinstalar» in a row's details (never Store itself, never while installing). */
+    fun uninstall(row: AppRow) { if (!busy && row.installed != null && row.app.packageName != selfPackage) engine.uninstall(row.app.packageName) }
+
+    /** «Cancelar»: stops the download and the apps still waiting; an install already handed to Android is not stopped. */
+    fun cancel() { if (job?.phase == Phase.DOWNLOADING || queue.isNotEmpty()) running?.cancel() }
+
     private fun install(apps: List<CatalogApp>) {
         if (busy || apps.isEmpty()) return
         if (!engine.canInstall()) { canInstall = false; return }
@@ -140,7 +154,7 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
         wifiNeeded = false
         failure = null
         queue = apps.map { it.packageName }
-        scope.launch {
+        running = scope.launch {
             try {
                 for (app in apps) {
                     queue = queue - app.packageName
@@ -155,6 +169,7 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
             } finally {
                 job = null
                 queue = emptyList()
+                running = null
             }
         }
     }

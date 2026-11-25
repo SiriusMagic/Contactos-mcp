@@ -6,7 +6,8 @@
 - Cada versión: sube `versionCode` y `versionName`, copia el APK a `android/Tienda-<versión>.apk` (borra el anterior),
   anótalo en `CHANGELOG.md` y ejecuta `python3 tools/update_catalog.py` para que `catalog.json` la anuncie.
 - Tras la versión de cualquier otra app de la familia: `python3 tools/update_catalog.py` (lee los repos locales, no los
-  toca; con `--check` comprueba que cada APK ya está en GitHub) y sube `catalog.json`. `CatalogTest` lo valida.
+  toca; con `--check` comprueba que cada APK ya está en GitHub) y sube `catalog.json` e `icons/`. Necesita `pip install
+  cairosvg` para dibujar los iconos. `CatalogTest` lo valida.
 - Reglas puras (catálogo, versiones y estado de cada fila, direcciones permitidas, orden de «Actualizar todo», firma)
   en `data/`, sin Android y con pruebas. Las pantallas solo pintan y avisan. Todo lo de Android vive en `Platform`,
   `Installer`, `Net` y `AndroidEngine`.
@@ -16,6 +17,7 @@
   que Tienda). **Nunca** se instala algo con otra firma, ni se añade una forma de saltarse la comprobación.
 - Tienda nunca instala sola: siempre tras un toque del usuario («Instalar», «Actualizar», «Actualizar todo»), con el
   instalador de Android. El APK descargado se borra siempre. Tienda se actualiza la última.
+- «Desinstalar» solo abre el diálogo de Android tras un toque (la persona confirma ahí); nunca para Store misma.
 - Privacidad: sin anuncios ni estadísticas; solo guarda el último catálogo (fuera de copias). No envía nada.
 - Prohibido: `eval`, motores de scripts, `QUERY_ALL_PACKAGES`, SQL concatenado.
 - Firma: la de depuración del entorno, igual que el resto de la familia y Gateway Hub.

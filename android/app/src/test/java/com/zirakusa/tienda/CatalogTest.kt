@@ -28,6 +28,19 @@ class CatalogTest {
         assertEquals(0xFF9A1F, a.color)
     }
 
+    @Test fun sizeCategoryAndIconAreOptionalAndChecked() {
+        val plain = CatalogParser.parse("""{"apps":[$good]}""").apps.single()
+        assertEquals(0L, plain.size); assertEquals("", plain.category); assertEquals(null, plain.icon)
+        val icon = "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/reloj.png"
+        val rich = CatalogParser.parse("""{"apps":[${good.dropLast(1)},"size":13000000,"category":"Herramientas","icon":"$icon"}]}""").apps.single()
+        assertEquals(13_000_000L, rich.size); assertEquals("Herramientas", rich.category); assertEquals(icon, rich.icon)
+        // Wrong optional values are ignored, the app still shows.
+        val odd = CatalogParser.parse("""{"apps":[${good.dropLast(1)},"size":-5,"category":7,"icon":"https://example.com/x.png"}]}""")
+        assertEquals(emptyList<String>(), odd.skipped)
+        assertEquals(0L, odd.apps.single().size); assertEquals("", odd.apps.single().category); assertEquals(null, odd.apps.single().icon)
+        assertEquals(null, CatalogParser.parse("""{"apps":[${good.dropLast(1)},"icon":"$icon.svg"}]}""").apps.single().icon)
+    }
+
     @Test fun notesAreOptional() {
         val c = CatalogParser.parse("""{"apps":[${good.replace(Regex("\"notes\":\"[^\"]*\","), "")}]}""")
         assertEquals("", c.apps.single().notes)
@@ -79,6 +92,9 @@ class CatalogTest {
         assertTrue(c.apps.all { AllowedHost.allowed(it.apk) && it.apk.startsWith("https://raw.githubusercontent.com/SiriusMagic/") })
         assertTrue(c.apps.all { it.apk.endsWith("-${it.versionName}.apk") || it.apk.endsWith("-${it.versionName}-optimized.apk") })
         assertEquals("com.zirakusa.tienda", c.apps.last().packageName)
+        assertTrue(c.apps.all { it.size > 0 && it.category.isNotBlank() })
+        assertTrue(c.apps.all { it.icon == "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/icons/${it.id}.png" })
+        c.apps.forEach { a -> assertTrue(a.id, listOf(File("../../icons/${a.id}.png"), File("../icons/${a.id}.png")).any { it.exists() }) }
         listOf("com.zirakusa.stone.kotlin.preview", "com.zirakusa.gatewayhub", "app.luma.gallery", "com.zirakusa.launcher", "com.zirakusa.grabadora")
             .forEach { pkg -> assertTrue(pkg, c.apps.any { it.packageName == pkg }) }
     }

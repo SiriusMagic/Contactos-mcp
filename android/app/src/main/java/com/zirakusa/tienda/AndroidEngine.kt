@@ -17,6 +17,7 @@ import com.zirakusa.tienda.ui.Engine
 import com.zirakusa.tienda.ui.Failure
 import com.zirakusa.tienda.ui.Phase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
@@ -34,6 +35,7 @@ class AndroidEngine(
     private val prefs = context.getSharedPreferences("tienda", Context.MODE_PRIVATE)
     private val main = Handler(Looper.getMainLooper())
     private val apks get() = File(context.cacheDir, "apks").apply { mkdirs() }
+    private val icons get() = File(context.cacheDir, "icons").apply { mkdirs() }
 
     /** Leftovers of an install that was cut short (Tienda updating itself restarts the app). */
     fun cleanUp() { apks.listFiles()?.forEach { it.delete() } }
@@ -60,6 +62,19 @@ class AndroidEngine(
     override fun open(packageName: String) { platform.launchIntent(packageName)?.let(start) }
     override fun onUnmeteredNetwork(): Boolean = platform.onUnmeteredNetwork()
     override fun ownFingerprint(): String? = platform.ownCertificates().singleOrNull()
+    override fun uninstall(packageName: String) = start(platform.uninstallIntent(packageName))
+
+    override suspend fun icon(app: CatalogApp): android.graphics.Bitmap? = withContext(Dispatchers.IO) {
+        platform.icon(app.packageName, ICON_PX) ?: app.icon?.let { url ->
+            val file = File(icons, "${app.id}-${app.versionCode}.png")
+            if (!file.exists()) {
+                icons.listFiles { f -> f.name.startsWith("${app.id}-") }?.forEach { it.delete() }   // older versions' icons
+                runCatching { Sources.candidates(url).firstNotNullOf { u -> runCatching { net.download(u, file, ICON_BYTES) {} ; u }.getOrNull() } }
+                    .onFailure { file.delete() }
+            }
+            if (file.exists()) android.graphics.BitmapFactory.decodeFile(file.path) else null
+        }
+    }
 
     override suspend fun install(app: CatalogApp, onJob: (Phase, Float) -> Unit): Failure? {
         if (!platform.canInstall()) return Failure(Problem.NOT_ALLOWED)
@@ -85,6 +100,7 @@ class AndroidEngine(
             for (url in Sources.candidates(app.apk)) {
                 try {
                     net.download(url, file, ApkCheck.MAX_BYTES) { p ->
+                        if (!isActive) throw kotlinx.coroutines.CancellationException("Cancelar")   // stops reading at once
                         val percent = (p * 100).toInt()
                         if (percent != shown) { shown = percent; post { progress(p.coerceAtLeast(0f)) } }
                     }
@@ -97,4 +113,6 @@ class AndroidEngine(
         }
 
     private fun post(block: () -> Unit) { main.post(block) }
+
+    private companion object { const val ICON_PX = 144; const val ICON_BYTES = 512L * 1024 }
 }

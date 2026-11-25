@@ -9,6 +9,7 @@ import android.content.pm.Signature
 import android.os.Build
 import android.provider.Settings
 import androidx.core.content.pm.PackageInfoCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import com.zirakusa.tienda.data.ApkCheck
 import com.zirakusa.tienda.data.ApkFacts
@@ -76,6 +77,14 @@ class Platform(private val context: Context) {
         Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, "package:${context.packageName}".toUri())
 
     fun launchIntent(packageName: String): Intent? = pm.getLaunchIntentForPackage(packageName)
+
+    /** Android's own uninstall dialog for [packageName]. */
+    fun uninstallIntent(packageName: String) = Intent(Intent.ACTION_DELETE, "package:$packageName".toUri())
+
+    /** The installed app's own icon at [px]×[px], or null if it is not installed. */
+    fun icon(packageName: String, px: Int): android.graphics.Bitmap? = try {
+        pm.getApplicationIcon(packageName).toBitmap(px, px)
+    } catch (_: PackageManager.NameNotFoundException) { null }
 
     /** On Wi‑Fi or another network that does not spend mobile data (for «Solo con Wi‑Fi»). */
     fun onUnmeteredNetwork(): Boolean {

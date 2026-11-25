@@ -36,8 +36,8 @@ import com.zirakusa.tienda.ui.Page
 import com.zirakusa.tienda.ui.StoreState
 import com.zirakusa.tienda.ui.theme.StoreColors
 
-/** «Ajustes»: theme, downloads only on Wi‑Fi, which apps the list shows, checking on open, and «Acerca de». */
-@Composable fun SettingsScreen(state: StoreState) {
+/** «Ajustes»: theme, downloads only on Wi‑Fi, which apps the list shows, checking on open, the app icon and «Acerca de». */
+@Composable fun SettingsScreen(state: StoreState, iconCard: @Composable () -> Unit = {}) {
     Column(Modifier.fillMaxSize().background(StoreColors.Background).safeDrawingPadding()) {
         Row(Modifier.fillMaxWidth().padding(start = 4.dp, end = 20.dp, top = 12.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = { state.page = Page.APPS }) {
@@ -66,6 +66,7 @@ import com.zirakusa.tienda.ui.theme.StoreColors
                 SwitchRow(R.string.show_new, R.string.show_new_hint, state.showNotInstalled, state::changeShowNotInstalled)
                 SwitchRow(R.string.check_on_open, R.string.check_on_open_hint, state.checkOnOpen, state::changeCheckOnOpen)
             }
+            Group { iconCard() }
             Group {
                 Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(stringResource(R.string.about), fontSize = 17.sp)

@@ -16,6 +16,7 @@ import com.zirakusa.tienda.data.ThemeChoice
 import com.zirakusa.tienda.ui.Page
 import com.zirakusa.tienda.ui.StoreState
 import com.zirakusa.tienda.ui.screens.AppsScreen
+import com.zirakusa.tienda.ui.screens.IconCard
 import com.zirakusa.tienda.ui.screens.SettingsScreen
 import com.zirakusa.tienda.ui.theme.StoreTheme
 
@@ -35,11 +36,12 @@ class MainActivity : ComponentActivity() {
         }
         state = StoreState(engine, lifecycleScope, packageName, StoreSettings(values))
         state.start()
+        AppIcon.load(this)
         setContent {
             val dark = when (state.theme) { ThemeChoice.SYSTEM -> isSystemInDarkTheme(); ThemeChoice.LIGHT -> false; ThemeChoice.BLACK -> true }
             StoreTheme(dark) {
                 BackHandler(state.page == Page.SETTINGS) { state.page = Page.APPS }
-                if (state.page == Page.SETTINGS) SettingsScreen(state) else AppsScreen(state)
+                if (state.page == Page.SETTINGS) SettingsScreen(state) { IconCard(AppIcon.current) { AppIcon.apply(this, it) } } else AppsScreen(state)
             }
         }
     }

@@ -7,7 +7,8 @@ Uso (después de cada versión de cualquier app):
 
 Para cada app busca el APK que existe en su carpeta (`android/<Prefijo>-<versión>.apk`), lee el paquete, versionCode y
 versionName del propio APK con `aapt2 dump badging` (si no hay aapt2, del `build.gradle.kts` confirmado en git) y toma
-las novedades de la sección de esa versión en su CHANGELOG.md. Nunca escribe en los otros repos.
+las novedades de la sección de esa versión en su CHANGELOG.md. También el tamaño del APK, su categoría y su icono de
+fábrica, que dibuja en `icons/<id>.png` (tools/icons.py). Nunca escribe en los otros repos.
 """
 import json
 import os
@@ -16,6 +17,8 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
+
+import icons  # tools/icons.py: el icono de fábrica de cada app como PNG (pip install cairosvg)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HOME = os.path.dirname(ROOT)  # las carpetas de la familia viven junto a esta
@@ -43,8 +46,20 @@ APPS = [
     ("grabadora", "Grabadora", "grabadora-mcp", "Grabadora-mcp", "android", "Grabadora-{v}.apk", "com.zirakusa.grabadora", "#E53935"),
     ("inicio", "Inicio", "laucher-mcp", "Laucher-mcp", "android", "Inicio-{v}.apk", "com.zirakusa.launcher", "#F06292"),
     # Tienda: este repo, en GitHub `tienda-de-app` (antes Contactos-mcp; la app prueba los dos nombres).
-    ("tienda", "Tienda", os.path.basename(ROOT), "tienda-de-app", "android", "Tienda-{v}.apk", "com.zirakusa.tienda", "#3DDC97"),
+    ("tienda", "Store", os.path.basename(ROOT), "tienda-de-app", "android", "Tienda-{v}.apk", "com.zirakusa.tienda", "#3DDC97"),
 ]
+
+
+# La categoría que se ve en Store bajo el nombre.
+CATEGORIES = {
+    "stone": "Música", "stone-video": "Video", "gateway-hub": "Asistente", "telefono": "Comunicación", "sms": "Comunicación",
+    "reloj": "Herramientas", "calendario": "Productividad", "notas": "Productividad", "clima": "El tiempo", "camara": "Fotografía",
+    "qr": "Herramientas", "redes": "Herramientas", "brujula": "Herramientas", "nivel": "Herramientas",
+    "calculadora": "Herramientas", "filem": "Archivos", "luma": "Fotografía", "grabadora": "Audio", "inicio": "Personalización",
+    "tienda": "Tienda",
+}
+ICONS = os.path.join(ROOT, "icons")
+STORE_REPO = "tienda-de-app"
 
 
 def aapt2():
@@ -138,9 +153,17 @@ def main():
             except urllib.error.HTTPError as e:
                 status = e.code
             print(f"{status} {url}" + ("" if status == 200 else "   <- todavía no está en GitHub (¿falta subirlo?)"))
+        os.makedirs(ICONS, exist_ok=True)
+        png = icons.render(folder, apk_dir)
+        icon_path = os.path.join(ICONS, f"{app_id}.png")
+        if not os.path.exists(icon_path) or open(icon_path, "rb").read() != png:
+            with open(icon_path, "wb") as f:
+                f.write(png)
         apps.append({
             "id": app_id, "name": name, "package": pkg, "versionCode": code, "versionName": vname,
             "apk": url, "notes": notes(folder, vname), "color": color,
+            "size": os.path.getsize(apk_path), "category": CATEGORIES[app_id],
+            "icon": f"{BASE}{STORE_REPO}/main/icons/{app_id}.png",
         })
     catalog = {"format": 1, "apps": apps}
     with open(os.path.join(ROOT, "catalog.json"), "w", encoding="utf-8") as f:
