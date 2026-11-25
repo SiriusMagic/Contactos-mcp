@@ -28,7 +28,7 @@ BASE = "https://raw.githubusercontent.com/SiriusMagic/"  # el mismo que Sources.
 APPS = [
     ("stone", "Stone", "Stone", "Stone", "android-native", "Stone-{v}-optimized.apk", "com.zirakusa.stone.kotlin.preview", "#8E7CF0"),
     ("stone-video", "Stone Video", "stone-v-deo-mcp", "Stone-v-deo-mcp", "android-native", "StoneVideo-{v}.apk", "com.zirakusa.stone.video", "#E85D9A"),
-    ("gateway-hub", "Gateway Hub", "gateway-hub-mcp", "Gateway-Hub-MCP", "android", "GatewayHub-{v}.apk", "com.zirakusa.gatewayhub", "#E8B931"),
+    ("gateway-hub", "Arka", "gateway-hub-mcp", "Gateway-Hub-MCP", "android", "Arka-{v}.apk", "com.zirakusa.gatewayhub", "#E8B931"),
     ("telefono", "Teléfono", "tel-fono.mcp", "Tel-fono.mcp", "android", "Telefono-{v}.apk", "com.zirakusa.telefono", "#4CE08A"),
     ("sms", "SMS", "sms", "SMS", "android", "SMS-{v}.apk", "com.zirakusa.sms", "#4FC3F7"),
     ("reloj", "Reloj", "reloj-mcp", "Reloj-mcp", "android", "Reloj-{v}.apk", "com.zirakusa.reloj", "#FF9A1F"),
