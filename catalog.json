@@ -165,10 +165,10 @@
       "id": "luma",
       "name": "Luma",
       "package": "app.luma.gallery",
-      "versionCode": 9,
-      "versionName": "0.6.3",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.6.3.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 10,
+      "versionName": "0.6.4",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.6.4.apk",
+      "notes": "Se llama «Galería», Icono de la app",
       "color": "#B388FF"
     },
     {
