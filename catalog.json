@@ -155,10 +155,10 @@
       "id": "filem",
       "name": "Filem",
       "package": "com.zirakusa.filem",
-      "versionCode": 6,
-      "versionName": "0.5.1",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Filem.mcp/main/android/Filem-0.5.1.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 7,
+      "versionName": "0.6.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Filem.mcp/main/android/Filem-0.6.0.apk",
+      "notes": "Iconos nuevos",
       "color": "#7FD49B"
     },
     {
