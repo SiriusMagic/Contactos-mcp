@@ -60,7 +60,9 @@ interface Engine {
 
 /** The only owner of the screen's state. The screens paint it and call these functions; nothing else changes it. */
 class StoreState(private val engine: Engine, private val scope: CoroutineScope, val selfPackage: String,
-    private val settings: StoreSettings = StoreSettings(MapValues())) {
+    private val settings: StoreSettings = StoreSettings(MapValues()), private val now: () -> Long = System::currentTimeMillis) {
+    /** When the catalog was last read from GitHub (0: never in this run). */
+    private var fetchedAt = 0L
     var page by mutableStateOf(Page.APPS)
     var theme by mutableStateOf(settings.theme); private set
     var wifiOnly by mutableStateOf(settings.wifiOnly); private set
@@ -93,6 +95,15 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
         if (checkOnOpen || catalog == null) refresh()
     }
 
+    /**
+     * Coming back to Store (it may have stayed open in the background for hours): what is installed again, and the
+     * catalog too when «Buscar al abrir» is on and it is older than [STALE_MS], so new versions show without a pull.
+     */
+    fun resumed() {
+        recheck()
+        if (checkOnOpen && now() - fetchedAt > STALE_MS) refresh()
+    }
+
     /** After coming back to the app (an install, Settings): reads again what is installed and the permission. */
     fun recheck() {
         canInstall = engine.canInstall()
@@ -105,6 +116,7 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
         scope.launch {
             try {
                 catalog = engine.catalog()
+                fetchedAt = now()
                 catalogError = null
                 recheck()
             } catch (_: CatalogException) {
@@ -172,5 +184,10 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
                 running = null
             }
         }
+    }
+
+    companion object {
+        /** A catalog older than this is read again when Store comes back to the front. */
+        const val STALE_MS = 5 * 60_000L
     }
 }

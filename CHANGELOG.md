@@ -1,3 +1,11 @@
+# Tienda 0.3.1 (Store)
+
+- **Las versiones nuevas aparecen solas**: al volver a Store (si la dejaste abierta en segundo plano) vuelve a leer el
+  catálogo si tiene más de 5 minutos, con «Buscar al abrir» activado. Antes había que cerrarla o deslizar hacia abajo.
+- **Los iconos nuevos se ven antes de actualizar**: si una app tiene versión nueva, su fila muestra ya el icono de esa
+  versión (antes, el de la versión instalada, aunque fuera el viejo).
+- 38 pruebas.
+
 # Tienda 0.3.0 (ahora «Store»)
 
 - **Se llama Store** e incluye **iconos nuevos** para elegir en Ajustes › Icono de la app: Estrella (la de fábrica),

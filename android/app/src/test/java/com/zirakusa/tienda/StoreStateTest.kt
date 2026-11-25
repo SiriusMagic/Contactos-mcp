@@ -1,5 +1,6 @@
 package com.zirakusa.tienda
 
+import com.zirakusa.tienda.data.Catalog
 import com.zirakusa.tienda.data.Problem
 import com.zirakusa.tienda.data.RowState
 import com.zirakusa.tienda.ui.CatalogError
@@ -146,5 +147,19 @@ class StoreStateTest {
         assertEquals("1.3 GB", com.zirakusa.tienda.data.Formats.size(1_400_000_000, java.util.Locale.US))
         assertEquals(0, com.zirakusa.tienda.data.Formats.percent(-1f)); assertEquals(42, com.zirakusa.tienda.data.Formats.percent(0.42f))
         assertEquals(100, com.zirakusa.tienda.data.Formats.percent(3f))
+    }
+
+    /** Store left in the background: coming back reads the catalog again once it is older than five minutes. */
+    @Test fun comingBackReadsAStaleCatalogAgain() {
+        val engine = FakeEngine()
+        var clock = 1_000_000L
+        val state = StoreState(engine, scope, "com.zirakusa.tienda", now = { clock }).apply { start() }
+        assertEquals(3, state.updates)
+        // Clima gets a new version on GitHub meanwhile.
+        engine.catalog = Catalog(engine.catalog.apps.map { if (it.id == "clima") it.copy(versionCode = 3, versionName = "0.2.0") else it })
+        clock += 60_000; state.resumed()
+        assertEquals(3, state.updates)                                    // a minute later: the same catalog
+        clock += StoreState.STALE_MS; state.resumed()
+        assertEquals(4, state.updates)                                    // later: read again, Clima can be updated
     }
 }

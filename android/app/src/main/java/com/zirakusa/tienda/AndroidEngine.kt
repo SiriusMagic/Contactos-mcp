@@ -64,8 +64,17 @@ class AndroidEngine(
     override fun ownFingerprint(): String? = platform.ownCertificates().singleOrNull()
     override fun uninstall(packageName: String) = start(platform.uninstallIntent(packageName))
 
+    /**
+     * The installed app's own icon; but while a newer version waits (or the app isn't installed), the catalog's icon of
+     * that version, so an app whose new version has a new icon already shows it in its «Actualizar» row.
+     */
     override suspend fun icon(app: CatalogApp): android.graphics.Bitmap? = withContext(Dispatchers.IO) {
-        platform.icon(app.packageName, ICON_PX) ?: app.icon?.let { url ->
+        val waiting = installed(app.packageName)?.let { it.versionCode < app.versionCode } ?: true
+        (if (waiting) null else platform.icon(app.packageName, ICON_PX)) ?: catalogIcon(app) ?: platform.icon(app.packageName, ICON_PX)
+    }
+
+    private fun catalogIcon(app: CatalogApp): android.graphics.Bitmap? =
+        app.icon?.let { url ->
             val file = File(icons, "${app.id}-${app.versionCode}.png")
             if (!file.exists()) {
                 icons.listFiles { f -> f.name.startsWith("${app.id}-") }?.forEach { it.delete() }   // older versions' icons
@@ -74,7 +83,6 @@ class AndroidEngine(
             }
             if (file.exists()) android.graphics.BitmapFactory.decodeFile(file.path) else null
         }
-    }
 
     override suspend fun install(app: CatalogApp, onJob: (Phase, Float) -> Unit): Failure? {
         if (!platform.canInstall()) return Failure(Problem.NOT_ALLOWED)

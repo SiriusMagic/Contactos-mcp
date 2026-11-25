@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (::state.isInitialized) state.recheck()
+        if (::state.isInitialized) state.resumed()
     }
 
     private fun launch(intent: Intent) {
