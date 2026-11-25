@@ -85,10 +85,10 @@
       "id": "clima",
       "name": "Clima",
       "package": "com.zirakusa.clima",
-      "versionCode": 2,
-      "versionName": "0.1.1",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Clima-mcp/main/android/Clima-0.1.1.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 3,
+      "versionName": "0.2.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Clima-mcp/main/android/Clima-0.2.0.apk",
+      "notes": "Iconos nuevos",
       "color": "#2F80ED"
     },
     {
