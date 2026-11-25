@@ -135,10 +135,10 @@
       "id": "nivel",
       "name": "Nivel",
       "package": "com.zirakusa.nivel",
-      "versionCode": 2,
-      "versionName": "0.1.1",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Nivel-burbuja-mcp/main/android/Nivel-0.1.1.apk",
-      "notes": "Conectar todas, Lucía, Icono de la app",
+      "versionCode": 3,
+      "versionName": "0.2.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Nivel-burbuja-mcp/main/android/Nivel-0.2.0.apk",
+      "notes": "Iconos nuevos",
       "color": "#C6F135"
     },
     {
@@ -185,10 +185,10 @@
       "id": "inicio",
       "name": "Inicio",
       "package": "com.zirakusa.launcher",
-      "versionCode": 7,
-      "versionName": "0.5.2",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Laucher-mcp/main/android/Inicio-0.5.2.apk",
-      "notes": "Sin puntos rojos",
+      "versionCode": 8,
+      "versionName": "0.6.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Laucher-mcp/main/android/Inicio-0.6.0.apk",
+      "notes": "Nuevo diseño «Widgets»",
       "color": "#F06292"
     },
     {
