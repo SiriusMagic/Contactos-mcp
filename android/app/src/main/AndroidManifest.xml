@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Only to download catalog.json and the family's APKs from raw.githubusercontent.com (https). -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Only to know whether the network is Wi‑Fi (Ajustes › «Solo con Wi‑Fi»). -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Installs and updates the family's apps with PackageInstaller («Instalar apps desconocidas» must be allowed). -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!-- Android 12+: updates of apps Tienda installed may skip the extra confirmation (Android can still ask). -->

@@ -36,7 +36,7 @@ class SourcesTest {
 
     @Test fun catalogTriesTheNewRepoNameFirst() {
         assertEquals(listOf(
-            "https://raw.githubusercontent.com/SiriusMagic/Tienda-mcp/main/catalog.json",
+            "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/catalog.json",
             "https://raw.githubusercontent.com/SiriusMagic/Contactos-mcp/main/catalog.json",
         ), Sources.catalogUrls)
         Sources.catalogUrls.forEach { assertTrue(AllowedHost.allowed(it)) }
@@ -44,7 +44,7 @@ class SourcesTest {
 
     @Test fun tiendaApkUnderBothNames() {
         val old = "https://raw.githubusercontent.com/SiriusMagic/Contactos-mcp/main/android/Tienda-0.1.0.apk"
-        val new = "https://raw.githubusercontent.com/SiriusMagic/Tienda-mcp/main/android/Tienda-0.1.0.apk"
+        val new = "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/android/Tienda-0.1.0.apk"
         assertEquals(listOf(new, old), Sources.candidates(old))
         assertEquals(listOf(new, old), Sources.candidates(new))
         val reloj = "https://raw.githubusercontent.com/SiriusMagic/Reloj-mcp/main/android/Reloj-0.3.1.apk"

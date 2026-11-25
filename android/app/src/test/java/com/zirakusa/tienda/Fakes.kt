@@ -31,6 +31,7 @@ class FakeEngine(
     var allowed: Boolean = true,
     var failWith: Map<String, Failure> = emptyMap(),
     var offline: Boolean = false,
+    var wifi: Boolean = true,
 ) : Engine {
     val log = mutableListOf<String>()
     override fun cachedCatalog(): Catalog? = null
@@ -46,4 +47,6 @@ class FakeEngine(
         return null
     }
     override fun open(packageName: String) { log += "open $packageName" }
+    override fun onUnmeteredNetwork() = wifi
+    override fun ownFingerprint() = "34b88716ba31a8ca170624c1c009c11dd23e182148731f0889c98404b34182d4"
 }

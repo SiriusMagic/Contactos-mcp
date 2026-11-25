@@ -36,4 +36,21 @@
     <string name="fail_cancelled">Se canceló la instalación de %1$s.</string>
     <string name="fail_install">Android no instaló %1$s: %2$s</string>
     <string name="fail_unknown">error desconocido</string>
+    <string name="settings">Ajustes</string>
+    <string name="back">Atrás</string>
+    <string name="theme">Tema</string>
+    <string name="theme_system">Sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_black">Negro</string>
+    <string name="wifi_only">Solo con Wi‑Fi</string>
+    <string name="wifi_only_hint">Descarga las apps solo con Wi‑Fi, para no gastar datos móviles.</string>
+    <string name="wifi_needed">«Solo con Wi‑Fi» está activado y no estás en una red Wi‑Fi. Conéctate o cámbialo en Ajustes.</string>
+    <string name="show_new">Mostrar no instaladas</string>
+    <string name="show_new_hint">Muestra también las apps de la familia que aún no tienes.</string>
+    <string name="check_on_open">Buscar novedades al abrir</string>
+    <string name="check_on_open_hint">Descarga el catálogo cada vez que abres Tienda. Si lo apagas, usa el último hasta que toques Recargar.</string>
+    <string name="about">Acerca de</string>
+    <string name="about_version">Tienda %1$s</string>
+    <string name="about_signature">Firma (SHA‑256). Tienda solo instala apps con esta misma firma:</string>
+    <string name="about_privacy">Sin anuncios ni estadísticas. Tienda no envía nada: solo descarga el catálogo y las apps de raw.githubusercontent.com.</string>
 </resources>

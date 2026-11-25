@@ -22,13 +22,13 @@ object AllowedHost {
 }
 
 /**
- * Where the catalog lives. [BASE] is the one constant: the family's GitHub account on [AllowedHost.HOST]. The repo is
- * being renamed from Contactos-mcp to Tienda-mcp, so the new name is tried first and the old one second.
+ * Where the catalog lives. [BASE] is the one constant: the family's GitHub account on [AllowedHost.HOST]. The repo was
+ * renamed from Contactos-mcp to tienda-de-app, so the new name is tried first and the old one second.
  */
 object Sources {
     const val BASE = "https://raw.githubusercontent.com/SiriusMagic/"
     /** Tienda's own repo: its new name first, then the old one. */
-    val REPOS = listOf("Tienda-mcp", "Contactos-mcp")
+    val REPOS = listOf("tienda-de-app", "Contactos-mcp")
     const val BRANCH = "main"
     const val CATALOG = "catalog.json"
 

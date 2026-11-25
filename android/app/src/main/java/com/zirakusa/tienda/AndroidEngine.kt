@@ -58,6 +58,8 @@ class AndroidEngine(
     override fun canInstall() = platform.canInstall()
     override fun allowInstalls() = start(platform.allowInstallsIntent())
     override fun open(packageName: String) { platform.launchIntent(packageName)?.let(start) }
+    override fun onUnmeteredNetwork(): Boolean = platform.onUnmeteredNetwork()
+    override fun ownFingerprint(): String? = platform.ownCertificates().singleOrNull()
 
     override suspend fun install(app: CatalogApp, onJob: (Phase, Float) -> Unit): Failure? {
         if (!platform.canInstall()) return Failure(Problem.NOT_ALLOWED)

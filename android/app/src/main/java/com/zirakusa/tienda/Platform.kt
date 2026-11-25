@@ -76,4 +76,11 @@ class Platform(private val context: Context) {
         Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, "package:${context.packageName}".toUri())
 
     fun launchIntent(packageName: String): Intent? = pm.getLaunchIntentForPackage(packageName)
+
+    /** On Wi‑Fi or another network that does not spend mobile data (for «Solo con Wi‑Fi»). */
+    fun onUnmeteredNetwork(): Boolean {
+        val cm = context.getSystemService(android.net.ConnectivityManager::class.java) ?: return false
+        val caps = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
+        return caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+    }
 }

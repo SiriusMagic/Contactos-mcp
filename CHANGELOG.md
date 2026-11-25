@@ -1,3 +1,10 @@
+# Tienda 0.2.0
+
+- **Ajustes** (la rueda arriba a la derecha): tema (Sistema, Claro o Negro), «Solo con Wi‑Fi» para no gastar datos,
+  «Mostrar no instaladas» y «Buscar novedades al abrir». En «Acerca de», la versión, la huella de la firma (Tienda solo
+  instala apps con esa misma firma) y la privacidad.
+- El repo se llama ahora `tienda-de-app`: Tienda lo busca primero por ese nombre y después por el viejo.
+
 # Tienda 0.1.0
 
 Primera versión: la tienda propia de la familia.

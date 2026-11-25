@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,10 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zirakusa.tienda.R
 import com.zirakusa.tienda.ui.CatalogError
+import com.zirakusa.tienda.ui.Page
 import com.zirakusa.tienda.ui.StoreState
 import com.zirakusa.tienda.ui.theme.StoreColors
 
-/** «Apps»: the header with «Actualizar todo» and «Recargar», the notices, and one row per app (pull down to reload). */
+/** «Apps»: the header with «Actualizar todo», «Recargar» and Ajustes, the notices, and one row per app (pull down to reload). */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable fun AppsScreen(state: StoreState) {
     Column(Modifier.fillMaxSize().background(StoreColors.Background).safeDrawingPadding()) {
@@ -45,14 +47,15 @@ import com.zirakusa.tienda.ui.theme.StoreColors
             Notice(stringResource(if (it == CatalogError.NETWORK) R.string.catalog_network else R.string.catalog_invalid))
         }
         state.failure?.let { Notice(failureText(it), onClose = { state.failure = null }) }
+        if (state.wifiNeeded) Notice(stringResource(R.string.wifi_needed), onClose = { state.wifiNeeded = false })
         PullToRefreshBox(isRefreshing = state.loading, onRefresh = state::refresh, modifier = Modifier.fillMaxSize()) {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp, 8.dp, 16.dp, 24.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                if (state.rows.isEmpty()) item {
+                if (state.visibleRows.isEmpty()) item {
                     Text(stringResource(if (state.loading) R.string.loading else R.string.empty), color = StoreColors.Muted,
                         modifier = Modifier.padding(vertical = 24.dp))
                 }
-                items(state.rows, key = { it.app.packageName }) { row -> AppRowView(state, row) }
+                items(state.visibleRows, key = { it.app.packageName }) { row -> AppRowView(state, row) }
             }
         }
     }
@@ -67,6 +70,9 @@ import com.zirakusa.tienda.ui.theme.StoreColors
         }
         IconButton(onClick = state::refresh, enabled = !state.loading) {
             Icon(Icons.Filled.Refresh, contentDescription = stringResource(R.string.reload))
+        }
+        IconButton(onClick = { state.page = Page.SETTINGS }) {
+            Icon(Icons.Filled.Settings, contentDescription = stringResource(R.string.settings))
         }
     }
     val count = state.updates

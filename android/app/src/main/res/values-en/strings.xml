@@ -36,4 +36,21 @@
     <string name="fail_cancelled">The installation of %1$s was cancelled.</string>
     <string name="fail_install">Android did not install %1$s: %2$s</string>
     <string name="fail_unknown">unknown error</string>
+    <string name="settings">Settings</string>
+    <string name="back">Back</string>
+    <string name="theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_black">Black</string>
+    <string name="wifi_only">Wi‑Fi only</string>
+    <string name="wifi_only_hint">Downloads apps only on Wi‑Fi, so no mobile data is used.</string>
+    <string name="wifi_needed">«Wi‑Fi only» is on and you are not on Wi‑Fi. Connect, or change it in Settings.</string>
+    <string name="show_new">Show not installed</string>
+    <string name="show_new_hint">Also shows the family apps you do not have yet.</string>
+    <string name="check_on_open">Check on open</string>
+    <string name="check_on_open_hint">Downloads the catalog every time you open Tienda. Off, it uses the last one until you tap Reload.</string>
+    <string name="about">About</string>
+    <string name="about_version">Tienda %1$s</string>
+    <string name="about_signature">Signature (SHA‑256). Tienda only installs apps with this same signature:</string>
+    <string name="about_privacy">No ads or analytics. Tienda sends nothing: it only downloads the catalog and the apps from raw.githubusercontent.com.</string>
 </resources>

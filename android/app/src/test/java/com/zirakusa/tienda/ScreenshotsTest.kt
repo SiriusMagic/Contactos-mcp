@@ -33,7 +33,23 @@ class ScreenshotsTest {
     @get:Rule val compose = createComposeRule()
 
     private fun shot(name: String) { compose.waitForIdle(); onView(isRoot()).captureRoboImage("build/screenshots/tienda-$name.png") }
-    private fun show(state: StoreState, dark: Boolean = true) = compose.setContent { StoreTheme(dark) { AppsScreen(state) } }
+    private fun show(state: StoreState, dark: Boolean = true) = compose.setContent {
+        StoreTheme(dark) { if (state.page == com.zirakusa.tienda.ui.Page.SETTINGS) com.zirakusa.tienda.ui.screens.SettingsScreen(state) else AppsScreen(state) }
+    }
+
+    @Test fun settings() {
+        val state = StoreState(FakeEngine(), CoroutineScope(Dispatchers.Unconfined), "com.zirakusa.tienda").apply { start() }
+        show(state)
+        compose.onNodeWithContentDescription("Ajustes").performClick()
+        compose.onNodeWithText("Solo con Wi‑Fi").assertExists()
+        compose.onNodeWithText("Tienda 0.1.0").assertExists()
+        shot("settings")
+        compose.onNodeWithText("Mostrar no instaladas").performClick()
+        assertEquals(false, state.showNotInstalled)
+        compose.onNodeWithContentDescription("Atrás").performClick()
+        compose.onNodeWithText("Instalar").assertDoesNotExist()
+        shot("apps-installed-only")
+    }
 
     @Test fun apps() {
         val engine = FakeEngine()

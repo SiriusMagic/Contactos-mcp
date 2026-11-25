@@ -10,6 +10,10 @@ import com.zirakusa.tienda.data.CatalogException
 import com.zirakusa.tienda.data.Installed
 import com.zirakusa.tienda.data.Problem
 import com.zirakusa.tienda.data.RowState
+import com.zirakusa.tienda.data.SettingsRules
+import com.zirakusa.tienda.data.StoreSettings
+import com.zirakusa.tienda.data.MapValues
+import com.zirakusa.tienda.data.ThemeChoice
 import com.zirakusa.tienda.data.UpdateAll
 import com.zirakusa.tienda.data.Versions
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +31,8 @@ data class FailedApp(val name: String, val failure: Failure)
 
 enum class CatalogError { NETWORK, INVALID }
 
+enum class Page { APPS, SETTINGS }
+
 /** Everything Tienda does outside the screen: the network, PackageManager and PackageInstaller (fakes in the tests). */
 interface Engine {
     /** The last catalog that loaded, so the list shows at once (also without internet). */
@@ -42,10 +48,22 @@ interface Engine {
     suspend fun install(app: CatalogApp, onJob: (Phase, Float) -> Unit): Failure?
     /** Opens an installed app (only ever after a tap of the user). */
     fun open(packageName: String)
+    /** The phone is on Wi‑Fi or another network that does not spend mobile data. */
+    fun onUnmeteredNetwork(): Boolean
+    /** SHA-256 of Tienda's own signing certificate, in hex (for Ajustes › Acerca de). */
+    fun ownFingerprint(): String?
 }
 
 /** The only owner of the screen's state. The screens paint it and call these functions; nothing else changes it. */
-class StoreState(private val engine: Engine, private val scope: CoroutineScope, val selfPackage: String) {
+class StoreState(private val engine: Engine, private val scope: CoroutineScope, val selfPackage: String,
+    private val settings: StoreSettings = StoreSettings(MapValues())) {
+    var page by mutableStateOf(Page.APPS)
+    var theme by mutableStateOf(settings.theme); private set
+    var wifiOnly by mutableStateOf(settings.wifiOnly); private set
+    var showNotInstalled by mutableStateOf(settings.showNotInstalled); private set
+    var checkOnOpen by mutableStateOf(settings.checkOnOpen); private set
+    /** An install was asked for with «Solo con Wi‑Fi» on and no Wi‑Fi: the notice says so. */
+    var wifiNeeded by mutableStateOf(false)
     var rows by mutableStateOf<List<AppRow>>(emptyList()); private set
     var loading by mutableStateOf(false); private set
     var catalogError by mutableStateOf<CatalogError?>(null); private set
@@ -58,13 +76,15 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
     var canInstall by mutableStateOf(true); private set
     private var catalog: Catalog? = null
 
+    /** The rows the list shows (Ajustes › «Mostrar no instaladas»). */
+    val visibleRows get() = SettingsRules.visible(rows, showNotInstalled)
     val busy get() = job != null || queue.isNotEmpty()
     val updates get() = rows.count { it.state == RowState.UPDATE }
 
     fun start() {
         engine.cachedCatalog()?.let { catalog = it }
         recheck()
-        refresh()
+        if (checkOnOpen || catalog == null) refresh()
     }
 
     /** After coming back to the app (an install, Settings): reads again what is installed and the permission. */
@@ -102,11 +122,22 @@ class StoreState(private val engine: Engine, private val scope: CoroutineScope, 
 
     fun updateAll() = install(UpdateAll.order(rows, selfPackage))
 
+    fun changeTheme(next: ThemeChoice) { theme = next; settings.theme = next }
+    fun changeWifiOnly(on: Boolean) { wifiOnly = on; settings.wifiOnly = on; if (!on) wifiNeeded = false }
+    fun changeShowNotInstalled(on: Boolean) { showNotInstalled = on; settings.showNotInstalled = on }
+    fun changeCheckOnOpen(on: Boolean) { checkOnOpen = on; settings.checkOnOpen = on }
+
+    /** Ajustes › Acerca de: Tienda's version and its signature, as «34:B8:…». */
+    val version: String? get() = engine.installed(selfPackage)?.versionName
+    val fingerprint: String? get() = SettingsRules.fingerprint(engine.ownFingerprint())
+
     fun allowInstalls() = engine.allowInstalls()
 
     private fun install(apps: List<CatalogApp>) {
         if (busy || apps.isEmpty()) return
         if (!engine.canInstall()) { canInstall = false; return }
+        if (wifiOnly && !engine.onUnmeteredNetwork()) { wifiNeeded = true; return }
+        wifiNeeded = false
         failure = null
         queue = apps.map { it.packageName }
         scope.launch {

@@ -18,8 +18,8 @@ APK: [`android/Tienda-0.1.0.apk`](android/Tienda-0.1.0.apk) (`com.zirakusa.tiend
 
 ## Primeros pasos
 
-1. **Renombra este repo en GitHub a `Tienda-mcp`** (Settings › Repository name). Hasta entonces la app usa el nombre
-   viejo, `Contactos-mcp`: prueba primero `Tienda-mcp` y después `Contactos-mcp`, así que funciona antes y después.
+1. Este repo ya se llama `tienda-de-app` en GitHub (antes `Contactos-mcp`). La app prueba primero el nombre nuevo y
+   después el viejo, así que funcionan las dos.
 2. **Instala Tienda a mano una vez**: descarga `android/Tienda-0.1.0.apk` en el teléfono y ábrelo.
 3. Al pulsar Instalar o Actualizar por primera vez, Tienda te lleva a Ajustes: **permite «Instalar apps desconocidas»**
    para Tienda. Desde ahí, Tienda se actualiza sola (con un toque) como las demás.
