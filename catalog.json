@@ -165,10 +165,10 @@
       "id": "luma",
       "name": "Galería",
       "package": "app.luma.gallery",
-      "versionCode": 11,
-      "versionName": "0.7.0",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.7.0.apk",
-      "notes": "Iconos nuevos",
+      "versionCode": 12,
+      "versionName": "0.8.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Galer-a-mcp/main/android/Luma-0.8.0.apk",
+      "notes": "Editar fotos dentro de Galería, Estudio IA, Recortar, Ajustes",
       "color": "#B388FF"
     },
     {
