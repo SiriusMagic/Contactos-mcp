@@ -15,10 +15,10 @@
       "id": "stone-video",
       "name": "Stone Video",
       "package": "com.zirakusa.stone.video",
-      "versionCode": 7,
-      "versionName": "0.4.3",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone-v-deo-mcp/main/android-native/StoneVideo-0.4.3.apk",
-      "notes": "Lucía (Gateway Hub) puede usar las herramientas de Stone Video en el teléfono, sin internet, mientras «Redireccionar a Hub» esté activado (las mismas reglas…",
+      "versionCode": 8,
+      "versionName": "0.5.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Stone-v-deo-mcp/main/android-native/StoneVideo-0.5.0.apk",
+      "notes": "Mascotas nuevas",
       "color": "#E85D9A"
     },
     {
@@ -195,10 +195,10 @@
       "id": "tienda",
       "name": "Tienda",
       "package": "com.zirakusa.tienda",
-      "versionCode": 1,
-      "versionName": "0.1.0",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Contactos-mcp/main/android/Tienda-0.1.0.apk",
-      "notes": "Apps, Actualizar todo, Seguro",
+      "versionCode": 2,
+      "versionName": "0.2.0",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/tienda-de-app/main/android/Tienda-0.2.0.apk",
+      "notes": "Ajustes",
       "color": "#3DDC97"
     }
   ]
