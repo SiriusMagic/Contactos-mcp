@@ -25,10 +25,10 @@
       "id": "gateway-hub",
       "name": "Gateway Hub",
       "package": "com.zirakusa.gatewayhub",
-      "versionCode": 33,
-      "versionName": "0.0.33",
-      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.33.apk",
-      "notes": "Lucía → Avanzado → «Usar un modelo que ya tengo (.gguf)»",
+      "versionCode": 37,
+      "versionName": "0.0.37",
+      "apk": "https://raw.githubusercontent.com/SiriusMagic/Gateway-Hub-MCP/main/android/GatewayHub-0.0.37.apk",
+      "notes": "«… en segundo plano» / «… de fondo»",
       "color": "#E8B931"
     },
     {
